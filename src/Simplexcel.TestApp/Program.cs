@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Espresso3389.HttpStream;
+using SixLabors.Fonts;
 
 namespace Simplexcel.TestApp
 {
@@ -8,6 +12,8 @@ namespace Simplexcel.TestApp
     {
         static void Main()
         {
+            var fontCollection = GetRequiredFontCollection();
+
             var wb = new Workbook
             {
                 Title = "Workbook Title",
@@ -127,6 +133,7 @@ namespace Simplexcel.TestApp
             sheet.Cells["F5"].Fill.BackgroundColor = Color.Blue;
             sheet.Cells["G5"].Fill.BackgroundColor = Color.Red;
 
+            sheet.AdjustWidthToContents(fontCollection);
             wb.Add(sheet);
 
             // Prime the Cache...
@@ -136,6 +143,7 @@ namespace Simplexcel.TestApp
             // ...and use the cache
             populatedSheet = new Worksheet("Populate");
             populatedSheet.Populate(EnumeratePopulateTestData(), cacheTypeColumns: true);
+            populatedSheet.AdjustWidthToContents(fontCollection);
             wb.Add(populatedSheet);
 
             var frozenTopRowSheet = new Worksheet("Frozen Top Row") { AutoFilter = true };
@@ -149,6 +157,7 @@ namespace Simplexcel.TestApp
                 frozenTopRowSheet.Cells[i, 2] = "Value 3-" + i;
             }
             frozenTopRowSheet.FreezeTopRow();
+            frozenTopRowSheet.AdjustWidthToContents(fontCollection);
             wb.Add(frozenTopRowSheet);
 
             var frozenLeftColumnSheet = new Worksheet("Frozen Left Column");
@@ -162,6 +171,7 @@ namespace Simplexcel.TestApp
                 frozenLeftColumnSheet.Cells[2, i] = "Value 3-" + i;
             }
             frozenLeftColumnSheet.FreezeLeftColumn();
+            frozenLeftColumnSheet.AdjustWidthToContents(fontCollection);
             wb.Add(frozenLeftColumnSheet);
 
             var pageBreakSheet = new Worksheet("Page Breaks");
@@ -176,6 +186,7 @@ namespace Simplexcel.TestApp
             pageBreakSheet.InsertManualPageBreakAfterRow(5);
             pageBreakSheet.InsertManualPageBreakAfterColumn("B8");
             pageBreakSheet.InsertManualPageBreakAfterColumn(16);
+            pageBreakSheet.AdjustWidthToContents(fontCollection);
             wb.Add(pageBreakSheet);
 
             var formulaSheet = new Worksheet("Formula");
@@ -190,6 +201,7 @@ namespace Simplexcel.TestApp
             formulaSheet.Cells["C2"] = Cell.Formula("=SUM(B:B)");
             formulaSheet.Cells["C3"] = Cell.Formula("C5+A1");
             formulaSheet.Cells["C5"] = Cell.Formula("SUM(B:B)+C1");
+            formulaSheet.AdjustWidthToContents(fontCollection);
             wb.Add(formulaSheet);
 
             var freezeTopLeftSheet = new Worksheet("FreezeTopLeft");
@@ -199,6 +211,7 @@ namespace Simplexcel.TestApp
                     freezeTopLeftSheet[row, col] = $"{row},{col}";
                 }
             freezeTopLeftSheet.FreezeTopLeft(2, 2);
+            freezeTopLeftSheet.AdjustWidthToContents(fontCollection);
             wb.Add(freezeTopLeftSheet);
 
             wb.Save("compressed.xlsx", compress: true);
@@ -222,6 +235,30 @@ namespace Simplexcel.TestApp
                     IgnoreMe = Guid.NewGuid().ToString()
                 };
             }
+        }
+
+        private static IReadOnlyFontCollection GetRequiredFontCollection()
+        {
+            var systemFontCollection = SystemFonts.Collection;
+            if (systemFontCollection.TryGet("Arial Black", out _) && systemFontCollection.TryGet("Calibri", out _))
+            {
+                return systemFontCollection;
+            }
+
+            var requiredFontsUris = new[]
+            {
+                new Uri("https://github.com/gbif/analytics/blob/8da73e68aca045f34251bf6385358ef24e799025/fonts/Arial%20Black.ttf?raw=true"),
+                new Uri("https://github.com/jondot/dotfiles2/blob/5255ec106394b01c70cfb2a5aad1d474c40daaa9/.fonts/calibri.ttf?raw=true"),
+            };
+
+            var fontCollection = new FontCollection();
+            foreach (var requiredFontUri in requiredFontsUris)
+            {
+                using var fontStream = new HttpStream(requiredFontUri);
+                fontCollection.Add(fontStream);
+            }
+
+            return fontCollection;
         }
 
         private abstract class PopulateTestDataBase

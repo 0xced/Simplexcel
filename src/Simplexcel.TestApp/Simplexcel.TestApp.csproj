@@ -10,4 +10,9 @@
     <ProjectReference Include="..\Simplexcel\Simplexcel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Espresso3389.HttpStream" Version="2.0.52.3" />
+    <PackageReference Include="SixLabors.Fonts" Version="1.0.0-beta16" />
+  </ItemGroup>
+
 </Project>
