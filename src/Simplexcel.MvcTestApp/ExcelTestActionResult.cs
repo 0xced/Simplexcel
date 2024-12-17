@@ -5,9 +5,9 @@ namespace Simplexcel.MvcTestApp
 {
     public class ExcelTestActionResult : ExcelResultBase
     {
-        private readonly List<string> _data;
+        private readonly List<string>? _data;
 
-        public ExcelTestActionResult(string filename, List<string> data) : base(filename)
+        public ExcelTestActionResult(string filename, List<string>? data) : base(filename)
         {
             _data = data;
         }

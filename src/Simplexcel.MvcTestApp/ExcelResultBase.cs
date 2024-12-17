@@ -1,7 +1,10 @@
 ﻿using System;
 using System.IO;
-using System.Net;
-using System.Web.Mvc;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
+using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace Simplexcel.MvcTestApp
 {
@@ -14,9 +17,9 @@ namespace Simplexcel.MvcTestApp
             _filename = filename;
         }
 
-        protected abstract Workbook GenerateWorkbook();
+        protected abstract Workbook? GenerateWorkbook();
 
-        public override void ExecuteResult(ControllerContext context)
+        public override async Task ExecuteResultAsync(ActionContext context)
         {
             if (context == null)
             {
@@ -26,15 +29,17 @@ namespace Simplexcel.MvcTestApp
             var workbook = GenerateWorkbook();
             if (workbook == null)
             {
-                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                context.HttpContext.Response.StatusCode = Status404NotFound;
                 return;
             }
 
             context.HttpContext.Response.ContentType = "application/octet-stream";
-            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.OK;
-            context.HttpContext.Response.AppendHeader("content-disposition", "attachment; filename=\"" + _filename + "\"");
+            context.HttpContext.Response.StatusCode = Status200OK;
+            context.HttpContext.Response.GetTypedHeaders().ContentDisposition = new ContentDispositionHeaderValue("attachment") { FileName = _filename };
 
-            workbook.Save(context.HttpContext.Response.OutputStream);
+            using var ms = new MemoryStream();
+            workbook.Save(ms);
+            await ms.CopyToAsync(context.HttpContext.Response.Body, context.HttpContext.RequestAborted);
         }
     }
 }
