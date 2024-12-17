@@ -1,45 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Simplexcel.XlsxInternal
+namespace Simplexcel.XlsxInternal;
+
+internal sealed class XlsxIgnoredError
 {
-    internal sealed class XlsxIgnoredError
+    private readonly IgnoredError _ignoredError;
+    internal HashSet<CellAddress> Cells { get; }
+
+    public XlsxIgnoredError()
     {
-        private readonly IgnoredError _ignoredError;
-        internal HashSet<CellAddress> Cells { get; }
+        Cells = new HashSet<CellAddress>();
+        _ignoredError = new IgnoredError();
+    }
 
-        public XlsxIgnoredError()
+    internal IgnoredError IgnoredError
+    {
+        get
         {
-            Cells = new HashSet<CellAddress>();
-            _ignoredError = new IgnoredError();
+            // Note: This is a mutable reference, but changing it would be... bad.
+            return _ignoredError;
         }
-
-        internal IgnoredError IgnoredError
+        set
         {
-            get
+            if (value == null)
             {
-                // Note: This is a mutable reference, but changing it would be... bad.
-                return _ignoredError;
+                throw new ArgumentNullException(nameof(value));
             }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException(nameof(value));
-                }
 
-                // And because the reference is mutable, this stores a copy so that modifications to the Worksheet don't break this
-                _ignoredError.NumberStoredAsText = value.NumberStoredAsText;
-                IgnoredErrorId = _ignoredError.GetHashCode();
-            }
+            // And because the reference is mutable, this stores a copy so that modifications to the Worksheet don't break this
+            _ignoredError.NumberStoredAsText = value.NumberStoredAsText;
+            IgnoredErrorId = _ignoredError.GetHashCode();
         }
+    }
 
-        internal int IgnoredErrorId { get; private set; }
+    internal int IgnoredErrorId { get; private set; }
 
-        internal string GetSqRef()
-        {
-            var ranges = CellAddressHelper.DetermineRanges(Cells);
-            return string.Join(" ", ranges);
-        }
+    internal string GetSqRef()
+    {
+        var ranges = CellAddressHelper.DetermineRanges(Cells);
+        return string.Join(" ", ranges);
     }
 }

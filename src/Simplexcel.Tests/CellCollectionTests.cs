@@ -1,15 +1,14 @@
 ﻿using Xunit;
 
-namespace Simplexcel.Tests
-{
-    public class CellCollectionTests
-    {
-        [Fact]
-        public void EmptyCellCollection_AccessUninitializedCell_ImplicitlyCreatesCell()
-        {
-            var cc = new CellCollection();
+namespace Simplexcel.Tests;
 
-            cc[0, 0].Bold = true;
-        }
+public class CellCollectionTests
+{
+    [Fact]
+    public void EmptyCellCollection_AccessUninitializedCell_ImplicitlyCreatesCell()
+    {
+        var cc = new CellCollection();
+
+        cc[0, 0].Bold = true;
     }
 }

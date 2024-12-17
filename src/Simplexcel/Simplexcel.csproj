@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net45</TargetFrameworks>
     <Version>3.0.0</Version>
@@ -22,7 +22,7 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>../simplexcel_oss.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>12</LangVersion>
   </PropertyGroup>
   
   <PropertyGroup>
