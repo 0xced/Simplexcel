@@ -1,25 +1,18 @@
-using System;
-using System.Collections.Generic;
+using System.IO;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Simplexcel.MvcTestApp.Controllers
+namespace Simplexcel.MvcTestApp.Controllers;
+
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+    public ActionResult Index() => View();
+
+    public ActionResult ExcelTest()
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
+        var workbook = Sample.GenerateWorkbook();
 
-        public ActionResult ExcelTest()
-        {
-            var businessData = new List<string>();
-            for (int i = 1; i < 55; i++)
-            {
-                businessData.Add(Guid.NewGuid().ToString());
-            }
-
-            return new ExcelTestActionResult("test.xlsx", businessData);
-        }
+        var stream = new MemoryStream();
+        workbook.Save(stream);
+        return File(fileStream: stream, contentType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileDownloadName: "test.xlsx");
     }
 }
