@@ -8,7 +8,7 @@ namespace Simplexcel;
 /// </summary>
 public sealed class CellCollection : IEnumerable<KeyValuePair<CellAddress, Cell>>
 {
-    private readonly Dictionary<CellAddress, Cell> _cells = new Dictionary<CellAddress, Cell>();
+    private readonly Dictionary<CellAddress, Cell> _cells = new();
 
     /// <summary>
     /// How many Rows are in the sheet? (This counts the maximum row index, so empty rows are counted if they are followed by another row)
@@ -33,8 +33,8 @@ public sealed class CellCollection : IEnumerable<KeyValuePair<CellAddress, Cell>
     /// <returns>The Cell, or NULL of the Cell hasn't been created yet.</returns>
     public Cell this[string address]
     {
-        get { return this[new CellAddress(address)]; }
-        set { this[new CellAddress(address)] = value; }
+        get => this[new CellAddress(address)];
+        set => this[new CellAddress(address)] = value;
     }
 
     /// <summary>
@@ -45,8 +45,8 @@ public sealed class CellCollection : IEnumerable<KeyValuePair<CellAddress, Cell>
     /// <returns>The Cell, or NULL of the Cell hasn't been created yet.</returns>
     public Cell this[int row, int column]
     {
-        get { return this[new CellAddress(row, column)]; }
-        set { this[new CellAddress(row, column)] = value; }
+        get => this[new CellAddress(row, column)];
+        set => this[new CellAddress(row, column)] = value;
     }
 
     private Cell this[CellAddress key]
@@ -58,7 +58,7 @@ public sealed class CellCollection : IEnumerable<KeyValuePair<CellAddress, Cell>
 
             return _cells[key];
         }
-        set { _cells[key] = value; }
+        set => _cells[key] = value;
     }
 
     /// <summary>

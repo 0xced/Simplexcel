@@ -3,19 +3,18 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 
 namespace Simplexcel;
 
 public sealed partial class Worksheet
 {
-    private readonly static Lazy<ConcurrentDictionary<Type, Dictionary<int, PopulateCellInfo>>> PopulateCache 
-        = new Lazy<ConcurrentDictionary<Type, Dictionary<int, PopulateCellInfo>>>(
-            () => new ConcurrentDictionary<Type, Dictionary<int, PopulateCellInfo>>(),
-            System.Threading.LazyThreadSafetyMode.ExecutionAndPublication);
+    private static readonly Lazy<ConcurrentDictionary<Type, Dictionary<int, PopulateCellInfo>>> PopulateCache
+        = new(() => new ConcurrentDictionary<Type, Dictionary<int, PopulateCellInfo>>(), LazyThreadSafetyMode.ExecutionAndPublication);
 
     /// <summary>
     /// Create Worksheet with the provided data.
-    /// 
+    ///
     /// Will use the Object Property Names as Column Headers (First Row) and then populate the cells with data.
     /// You can use <see cref="XlsxColumnAttribute"/> and <see cref="XlsxIgnoreColumnAttribute"/> to control the output.
     /// </summary>
@@ -31,7 +30,7 @@ public sealed partial class Worksheet
 
     /// <summary>
     /// Populate Worksheet with the provided data.
-    /// 
+    ///
     /// Will use the Object Property Names as Column Headers (First Row) and then populate the cells with data.
     /// You can use <see cref="XlsxColumnAttribute"/> and <see cref="XlsxIgnoreColumnAttribute"/> to control the output.
     /// </summary>
@@ -39,7 +38,7 @@ public sealed partial class Worksheet
     /// <param name="cacheTypeColumns">If true, the Column info for the given type is being cached in memory</param>
     public void Populate<T>(IEnumerable<T> data, bool cacheTypeColumns = false) where T : class
     {
-        data ??= Enumerable.Empty<T>();
+        data ??= [];
 
         var type = typeof(T);
 
@@ -120,7 +119,7 @@ public sealed partial class Worksheet
 
     private static void AddToPopulateCache(Type type, Dictionary<int, PopulateCellInfo> cols)
     {
-        PopulateCache.Value.AddOrUpdate(type, cols, (u1, u2) => cols);
+        PopulateCache.Value.AddOrUpdate(type, cols, (_, _) => cols);
     }
 
     private static Dictionary<int, PopulateCellInfo> TryGetFromCache(Type type)
@@ -130,12 +129,7 @@ public sealed partial class Worksheet
             return null;
         }
 
-        if (PopulateCache.Value.TryGetValue(type, out var cached))
-        {
-            return cached;
-        }
-
-        return null;
+        return PopulateCache.Value.TryGetValue(type, out var cached) ? cached : null;
     }
 
     private class PopulateCellInfo

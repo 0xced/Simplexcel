@@ -10,7 +10,7 @@ public class PatternFill : IEquatable<PatternFill>
     // TODO: Add a Gradient Fill to this.
     // This isn't the structure in the XML, but that's how Excel Presents it, as a "Fill Effect"
 
-    bool firstTimeSet = false;
+    private bool _firstTimeSet;
     private Color? _bgColor;
 
     /// <summary>
@@ -37,11 +37,11 @@ public class PatternFill : IEquatable<PatternFill>
 
             // PatternType defaults to None, but the first time we set a background color,
             // set it to solid as the user likely wants the background color to show.
-            // Further modifications won't change the PatternType, as this is now a delibrate setting
-            if (_bgColor.HasValue && PatternType == PatternType.None && !firstTimeSet)
+            // Further modifications won't change the PatternType, as this is now a deliberate setting
+            if (_bgColor.HasValue && PatternType == PatternType.None && !_firstTimeSet)
             {
                 PatternType = PatternType.Solid;
-                firstTimeSet = true;
+                _firstTimeSet = true;
             }
         }
     }

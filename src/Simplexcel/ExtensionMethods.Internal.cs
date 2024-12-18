@@ -47,7 +47,7 @@ internal static class ExtensionMethods
         return hashCode;
     }
 
-    private static readonly char[] HexEncodingTable = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+    private static readonly char[] HexEncodingTable = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
 
     /// <remarks>
     /// Taken from Bouncy Castle and slightly changed to create a string rather than write to a stream.

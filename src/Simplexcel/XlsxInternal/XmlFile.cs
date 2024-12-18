@@ -15,15 +15,10 @@ internal class XmlFile
     /// <summary>
     /// The Content Type of the file (default: application/xml)
     /// </summary>
-    internal string ContentType { get; set; }
+    internal string ContentType { get; set; } = "application/xml";
 
     /// <summary>
     /// The actual file content
     /// </summary>
     internal XDocument Content { get; set; }
-
-    public XmlFile()
-    {
-        ContentType = "application/xml";
-    }
 }

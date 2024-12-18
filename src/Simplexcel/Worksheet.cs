@@ -8,12 +8,6 @@ namespace Simplexcel;
 /// </summary>
 public sealed partial class Worksheet
 {
-    private readonly CellCollection _cells = new CellCollection();
-
-    private readonly ColumnWidthCollection _columnWidth = new ColumnWidthCollection();
-
-    private readonly PageSetup _pageSetup = new PageSetup();
-
     private List<SheetView> _sheetViews;
     private List<PageBreak> _rowBreaks;
     private List<PageBreak> _columnBreaks;
@@ -24,7 +18,7 @@ public sealed partial class Worksheet
     /// <remarks>
     /// These chars are not part of the ECMA-376 standard, but imposed by Excel
     /// </remarks>
-    public static readonly char[] InvalidSheetNameChars = new[] { '\\', '/', '?', '*', '[', ']' };
+    public static readonly char[] InvalidSheetNameChars = ['\\', '/', '?', '*', '[', ']'];
 
     /// <summary>
     /// Get the maximum allowable length for a sheet name
@@ -68,26 +62,17 @@ public sealed partial class Worksheet
     /// <summary>
     /// The Page Orientation and some other related values
     /// </summary>
-    public PageSetup PageSetup
-    {
-        get { return _pageSetup; }
-    }
+    public PageSetup PageSetup { get; } = new();
 
     /// <summary>
     /// The Cells of the Worksheet (zero based, [0,0] = A1)
     /// </summary>
-    public CellCollection Cells
-    {
-        get { return _cells; }
-    }
+    public CellCollection Cells { get; } = new();
 
     /// <summary>
     /// The Width of individual columns (Zero-based, in Excel's Units)
     /// </summary>
-    public ColumnWidthCollection ColumnWidths
-    {
-        get { return _columnWidth; }
-    }
+    public ColumnWidthCollection ColumnWidths { get; } = new();
 
     /// <summary>
     /// How to handle numbers that are larger than <see cref="Cell.LargeNumberPositiveLimit"/> or smaller than <see cref="Cell.LargeNumberNegativeLimit"/>?
@@ -109,8 +94,8 @@ public sealed partial class Worksheet
     /// <returns>The Cell, or NULL of the Cell hasn't been created yet.</returns>
     public Cell this[string address]
     {
-        get { return Cells[address]; }
-        set { Cells[address] = value; }
+        get => Cells[address];
+        set => Cells[address] = value;
     }
 
     /// <summary>
@@ -121,17 +106,17 @@ public sealed partial class Worksheet
     /// <returns>The Cell, or NULL of the Cell hasn't been created yet.</returns>
     public Cell this[int row, int column]
     {
-        get { return Cells[row, column]; }
-        set { Cells[row, column] = value; }
+        get => Cells[row, column];
+        set => Cells[row, column] = value;
     }
 
     /// <summary>
-    /// Freeze the top row, that is, create a <see cref="SheetView"/> that splits the first row (A) into a pane. 
+    /// Freeze the top row, that is, create a <see cref="SheetView"/> that splits the first row (A) into a pane.
     /// </summary>
     public void FreezeTopRow() => FreezeTopLeft(1, 0, Panes.BottomLeft);
 
     /// <summary>
-    /// Freeze the first column, that is, create a <see cref="SheetView"/> that splits the first column (1) into a pane. 
+    /// Freeze the first column, that is, create a <see cref="SheetView"/> that splits the first column (1) into a pane.
     /// </summary>
     public void FreezeLeftColumn() => FreezeTopLeft(0, 1, Panes.TopRight);
 
@@ -185,8 +170,8 @@ public sealed partial class Worksheet
             Pane = new Pane
             {
                 ActivePane = activePane.Value,
-                XSplit = columns > 0 ? (int?)columns : null,
-                YSplit = rows > 0 ? (int?)rows : null,
+                XSplit = columns > 0 ? columns : null,
+                YSplit = rows > 0 ? rows : null,
                 TopLeftCell = CellAddressHelper.ColRowToReference(columns, rows),
                 State = PaneState.Frozen
             }
@@ -197,10 +182,7 @@ public sealed partial class Worksheet
 
     private void AddSheetView(SheetView sheetView)
     {
-        if (_sheetViews == null)
-        {
-            _sheetViews = new List<SheetView>();
-        }
+        _sheetViews ??= [];
         _sheetViews.Add(sheetView);
     }
 
@@ -225,10 +207,7 @@ public sealed partial class Worksheet
     /// <param name="row">The zero-based row index (e.g., 0 for the first row)</param>
     public void InsertManualPageBreakAfterRow(int row)
     {
-        if (_rowBreaks == null)
-        {
-            _rowBreaks = new List<PageBreak>();
-        }
+        _rowBreaks ??= [];
 
         _rowBreaks.Add(new PageBreak
         {
@@ -243,10 +222,7 @@ public sealed partial class Worksheet
     /// <param name="col">The zero-based index of the column (e.g., 0 for column A)</param>
     public void InsertManualPageBreakAfterColumn(int col)
     {
-        if (_columnBreaks == null)
-        {
-            _columnBreaks = new List<PageBreak>();
-        }
+        _columnBreaks ??= [];
 
         _columnBreaks.Add(new PageBreak
         {

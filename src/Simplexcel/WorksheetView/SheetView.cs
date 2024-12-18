@@ -8,7 +8,7 @@ namespace Simplexcel;
 /// the workbook, each sheet view corresponds to a separate window within the spreadsheet application, where
 /// each window is showing the particular sheet containing the same workbookViewId value, the last sheetView
 /// definition is loaded, and the others are discarded.
-/// 
+///
 /// When multiple windows are viewing the same sheet, multiple
 /// sheetView elements (with corresponding workbookView entries) are saved.
 /// </summary>
@@ -16,10 +16,7 @@ public sealed class SheetView
 {
     private List<Selection> _selections;
 
-    internal ICollection<Selection> Selections
-    {
-        get { return _selections; }
-    }
+    internal ICollection<Selection> Selections => _selections;
 
     /// <summary>
     /// Flag indicating whether this sheet is selected.
@@ -37,7 +34,7 @@ public sealed class SheetView
     /// <summary>
     /// Zero-based index of this workbook view, pointing to a workbookView element in the bookViews collection.
     /// </summary>
-    public int WorkbookViewId { get { return 0; } }
+    public int WorkbookViewId => 0;
 
     /// <summary>
     /// The pane that this SheetView applies to
@@ -58,10 +55,7 @@ public sealed class SheetView
         }
 
         // Up to 4 Selections, and the Selection Pane cannot already be in use
-        if (_selections == null)
-        {
-            _selections = new List<Selection>(4);
-        }
+        _selections ??= new List<Selection>(4);
 
         foreach (var s in _selections)
         {
@@ -71,11 +65,9 @@ public sealed class SheetView
                 {
                     throw new InvalidOperationException("There is already a Selection for ActivePane " + sel.ActivePane);
                 }
-                else
-                {
-                    _selections.Remove(s);
-                    break;
-                }
+
+                _selections.Remove(s);
+                break;
             }
         }
 

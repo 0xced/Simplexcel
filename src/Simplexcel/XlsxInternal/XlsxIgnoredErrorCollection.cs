@@ -4,12 +4,7 @@ namespace Simplexcel.XlsxInternal;
 
 internal sealed class XlsxIgnoredErrorCollection
 {
-    internal IList<XlsxIgnoredError> DistinctIgnoredErrors { get; }
-
-    public XlsxIgnoredErrorCollection()
-    {
-        DistinctIgnoredErrors = new List<XlsxIgnoredError>();
-    }
+    internal IList<XlsxIgnoredError> DistinctIgnoredErrors { get; } = [];
 
     public void AddIgnoredError(CellAddress cellAddress, IgnoredError ignoredErrors)
     {

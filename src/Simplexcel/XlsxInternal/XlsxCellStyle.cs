@@ -7,13 +7,7 @@ namespace Simplexcel.XlsxInternal;
 /// </summary>
 internal class XlsxCellStyle : IEquatable<XlsxCellStyle>
 {
-    internal XlsxCellStyle()
-    {
-        Font = new XlsxFont();
-        Fill = new PatternFill();
-    }
-
-    internal XlsxFont Font { get; set; }
+    internal XlsxFont Font { get; set; } = new();
         
     internal CellBorder Border { get; set; }
         
@@ -23,7 +17,7 @@ internal class XlsxCellStyle : IEquatable<XlsxCellStyle>
 
     internal HorizontalAlign HorizontalAlignment { get; set; }
 
-    internal PatternFill Fill { get; set; }
+    internal PatternFill Fill { get; set; } = new();
 
     /// <summary>
     /// Compare this <see cref="XlsxCellStyle"/> to another <see cref="XlsxCellStyle"/>

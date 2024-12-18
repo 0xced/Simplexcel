@@ -5,22 +5,13 @@ namespace Simplexcel.XlsxInternal;
 
 internal sealed class XlsxIgnoredError
 {
-    private readonly IgnoredError _ignoredError;
-    internal HashSet<CellAddress> Cells { get; }
-
-    public XlsxIgnoredError()
-    {
-        Cells = new HashSet<CellAddress>();
-        _ignoredError = new IgnoredError();
-    }
+    private readonly IgnoredError _ignoredError = new();
+    internal HashSet<CellAddress> Cells { get; } = [];
 
     internal IgnoredError IgnoredError
     {
-        get
-        {
-            // Note: This is a mutable reference, but changing it would be... bad.
-            return _ignoredError;
-        }
+        // Note: This is a mutable reference, but changing it would be... bad.
+        get => _ignoredError;
         set
         {
             if (value == null)

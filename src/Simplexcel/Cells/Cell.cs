@@ -41,8 +41,8 @@ public sealed class Cell
     /// </summary>
     public string Format
     {
-        get { return XlsxCellStyle.Format; }
-        set { XlsxCellStyle.Format = value; }
+        get => XlsxCellStyle.Format;
+        set => XlsxCellStyle.Format = value;
     }
 
     /// <summary>
@@ -50,8 +50,8 @@ public sealed class Cell
     /// </summary>
     public CellBorder Border
     {
-        get { return XlsxCellStyle.Border; }
-        set { XlsxCellStyle.Border = value; }
+        get => XlsxCellStyle.Border;
+        set => XlsxCellStyle.Border = value;
     }
 
     /// <summary>
@@ -59,8 +59,8 @@ public sealed class Cell
     /// </summary>
     public string FontName
     {
-        get { return XlsxCellStyle.Font.Name; }
-        set { XlsxCellStyle.Font.Name = value; }
+        get => XlsxCellStyle.Font.Name;
+        set => XlsxCellStyle.Font.Name = value;
     }
 
     /// <summary>
@@ -68,8 +68,8 @@ public sealed class Cell
     /// </summary>
     public int FontSize
     {
-        get { return XlsxCellStyle.Font.Size; }
-        set { XlsxCellStyle.Font.Size = value; }
+        get => XlsxCellStyle.Font.Size;
+        set => XlsxCellStyle.Font.Size = value;
     }
 
     /// <summary>
@@ -77,8 +77,8 @@ public sealed class Cell
     /// </summary>
     public bool Bold
     {
-        get { return XlsxCellStyle.Font.Bold; }
-        set { XlsxCellStyle.Font.Bold = value; }
+        get => XlsxCellStyle.Font.Bold;
+        set => XlsxCellStyle.Font.Bold = value;
     }
 
     /// <summary>
@@ -86,8 +86,8 @@ public sealed class Cell
     /// </summary>
     public bool Italic
     {
-        get { return XlsxCellStyle.Font.Italic; }
-        set { XlsxCellStyle.Font.Italic = value; }
+        get => XlsxCellStyle.Font.Italic;
+        set => XlsxCellStyle.Font.Italic = value;
     }
 
     /// <summary>
@@ -95,8 +95,8 @@ public sealed class Cell
     /// </summary>
     public bool Underline
     {
-        get { return XlsxCellStyle.Font.Underline; }
-        set { XlsxCellStyle.Font.Underline = value; }
+        get => XlsxCellStyle.Font.Underline;
+        set => XlsxCellStyle.Font.Underline = value;
     }
 
     /// <summary>
@@ -104,8 +104,8 @@ public sealed class Cell
     /// </summary>
     public Color TextColor
     {
-        get { return XlsxCellStyle.Font.TextColor; }
-        set { XlsxCellStyle.Font.TextColor = value; }
+        get => XlsxCellStyle.Font.TextColor;
+        set => XlsxCellStyle.Font.TextColor = value;
     }
 
     /// <summary>
@@ -113,8 +113,8 @@ public sealed class Cell
     /// </summary>
     public PatternFill Fill
     {
-        get { return XlsxCellStyle.Fill; }
-        set { XlsxCellStyle.Fill = value; }
+        get => XlsxCellStyle.Fill;
+        set => XlsxCellStyle.Fill = value;
     }
 
     /// <summary>
@@ -122,8 +122,8 @@ public sealed class Cell
     /// </summary>
     public HorizontalAlign HorizontalAlignment
     {
-        get { return XlsxCellStyle.HorizontalAlignment; }
-        set { XlsxCellStyle.HorizontalAlignment = value; }
+        get => XlsxCellStyle.HorizontalAlignment;
+        set => XlsxCellStyle.HorizontalAlignment = value;
     }
 
     /// <summary>
@@ -131,8 +131,8 @@ public sealed class Cell
     /// </summary>
     public VerticalAlign VerticalAlignment
     {
-        get { return XlsxCellStyle.VerticalAlignment; }
-        set { XlsxCellStyle.VerticalAlignment = value; }
+        get => XlsxCellStyle.VerticalAlignment;
+        set => XlsxCellStyle.VerticalAlignment = value;
     }
 
     /// <summary>
@@ -223,11 +223,11 @@ public sealed class Cell
     public static Cell FromObject(object val)
     {
         Cell cell;
-        if (val is sbyte || val is short || val is int || val is long || val is byte || val is uint || val is ushort || val is ulong)
+        if (val is sbyte or short or int or long or byte or uint or ushort or ulong)
         {
             cell = new Cell(CellType.Number, Convert.ToDecimal(val), BuiltInCellFormat.NumberNoDecimalPlaces);
         }
-        else if (val is float || val is double || val is decimal)
+        else if (val is float or double or decimal)
         {
             cell = new Cell(CellType.Number, Convert.ToDecimal(val), BuiltInCellFormat.General);
         }
@@ -237,7 +237,7 @@ public sealed class Cell
         }
         else
         {
-            cell = new Cell(CellType.Text, (val ?? String.Empty).ToString(), BuiltInCellFormat.Text);
+            cell = new Cell(CellType.Text, val?.ToString() ?? string.Empty, BuiltInCellFormat.Text);
         }
         return cell;
     }

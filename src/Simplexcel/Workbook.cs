@@ -11,12 +11,12 @@ namespace Simplexcel;
 /// </summary>
 public sealed class Workbook
 {
-    private readonly List<Worksheet> _sheets = new List<Worksheet>();
+    private readonly List<Worksheet> _sheets = [];
 
     /// <summary>
     /// The Worksheets in this Workbook
     /// </summary>
-    public IEnumerable<Worksheet> Sheets { get { return _sheets.AsEnumerable(); } }
+    public IEnumerable<Worksheet> Sheets => _sheets.AsEnumerable();
 
     /// <summary>
     /// The title of the Workbook
@@ -31,10 +31,7 @@ public sealed class Workbook
     /// <summary>
     /// How many <see cref="Worksheet">sheets</see> are in the Workbook currently?
     /// </summary>
-    public int SheetCount
-    {
-        get { return _sheets.Count; }
-    }
+    public int SheetCount => _sheets.Count;
 
     /// <summary>
     /// Add a worksheet to this workbook. Sheet names must be unique.

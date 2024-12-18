@@ -7,12 +7,7 @@ namespace Simplexcel;
 // TODO: Not Yet Implemented
 internal class GradientFill : IEquatable<GradientFill>
 {
-    public IList<GradientStop> Stops { get; }
-
-    public GradientFill()
-    {
-        Stops = new List<GradientStop>();
-    }
+    public IList<GradientStop> Stops { get; } = [];
 
     public override bool Equals(object obj)
     {

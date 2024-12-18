@@ -12,7 +12,7 @@ internal static class StyleWriter
     /// <summary>
     /// Standard format codes as defined in ECMA-376, 3rd Edition, Part 1, 18.8.30 numFmt (Number Format)
     /// </summary>
-    private static Dictionary<string, int> StandardFormatIds = new Dictionary<string, int>
+    private static readonly Dictionary<string, int> StandardFormatIds = new()
     {
         ["General"] = 0,
         ["0"] = 1,
@@ -53,9 +53,9 @@ internal static class StyleWriter
     {
         var numberFormats = new List<string>();
         var uniqueBorders = new List<CellBorder> { CellBorder.None };
-        var uniqueFonts = new List<XlsxFont> { new XlsxFont() };
+        var uniqueFonts = new List<XlsxFont> { new() };
         // These two fills MUST exist as fill 0 (None) and 1 (Gray125)
-        var uniqueFills = new List<PatternFill> { new PatternFill { PatternType = PatternType.None }, new PatternFill { PatternType = PatternType.Gray125 } };
+        var uniqueFills = new List<PatternFill> { new() { PatternType = PatternType.None }, new() { PatternType = PatternType.Gray125 } };
 
         foreach (var style in styles)
         {
@@ -276,28 +276,28 @@ internal static class StyleWriter
             if (fill is PatternFill pf)
             {
                 var pfe = new XElement(Namespaces.workbook + "patternFill");
-                string patternType = "none";
-                switch (pf.PatternType)
+                var patternType = pf.PatternType switch
                 {
-                    case PatternType.Solid: patternType = "solid"; break;
-                    case PatternType.Gray750: patternType = "darkGray"; break;
-                    case PatternType.Gray500: patternType = "mediumGray"; break;
-                    case PatternType.Gray250: patternType = "lightGray"; break;
-                    case PatternType.Gray125: patternType = "gray125"; break;
-                    case PatternType.Gray0625: patternType = "gray0625"; break;
-                    case PatternType.HorizontalStripe: patternType = "darkHorizontal"; break;
-                    case PatternType.VerticalStripe: patternType = "darkVertical"; break;
-                    case PatternType.ReverseDiagonalStripe: patternType = "darkDown"; break;
-                    case PatternType.DiagonalStripe: patternType = "darkUp"; break;
-                    case PatternType.DiagonalCrosshatch: patternType = "darkGrid"; break;
-                    case PatternType.ThickDiagonalCrosshatch: patternType = "darkTrellis"; break;
-                    case PatternType.ThinHorizontalStripe: patternType = "lightHorizontal"; break;
-                    case PatternType.ThinVerticalStripe: patternType = "lightVertical"; break;
-                    case PatternType.ThinReverseDiagonalStripe: patternType = "lightDown"; break;
-                    case PatternType.ThinDiagonalStripe: patternType = "lightUp"; break;
-                    case PatternType.ThinHorizontalCrosshatch: patternType = "lightGrid"; break;
-                    case PatternType.ThinDiagonalCrosshatch: patternType = "lightTrellis"; break;
-                }
+                    PatternType.Solid => "solid",
+                    PatternType.Gray750 => "darkGray",
+                    PatternType.Gray500 => "mediumGray",
+                    PatternType.Gray250 => "lightGray",
+                    PatternType.Gray125 => "gray125",
+                    PatternType.Gray0625 => "gray0625",
+                    PatternType.HorizontalStripe => "darkHorizontal",
+                    PatternType.VerticalStripe => "darkVertical",
+                    PatternType.ReverseDiagonalStripe => "darkDown",
+                    PatternType.DiagonalStripe => "darkUp",
+                    PatternType.DiagonalCrosshatch => "darkGrid",
+                    PatternType.ThickDiagonalCrosshatch => "darkTrellis",
+                    PatternType.ThinHorizontalStripe => "lightHorizontal",
+                    PatternType.ThinVerticalStripe => "lightVertical",
+                    PatternType.ThinReverseDiagonalStripe => "lightDown",
+                    PatternType.ThinDiagonalStripe => "lightUp",
+                    PatternType.ThinHorizontalCrosshatch => "lightGrid",
+                    PatternType.ThinDiagonalCrosshatch => "lightTrellis",
+                    _ => "none"
+                };
                 pfe.Add(new XAttribute("patternType", patternType));
 
                 if (pf.BackgroundColor.HasValue)

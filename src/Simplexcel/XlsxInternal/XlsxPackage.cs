@@ -14,25 +14,17 @@ internal class XlsxPackage
     /// <summary>
     /// All XML Files in this package
     /// </summary>
-    internal IList<XmlFile> XmlFiles { get; }
+    internal IList<XmlFile> XmlFiles { get; } = [];
 
     /// <summary>
     /// Package-level relationships (/_rels/.rels)
     /// </summary>
-    internal IList<Relationship> Relationships { get; }
+    internal IList<Relationship> Relationships { get; } = [];
 
     /// <summary>
     /// Workbook-level relationships (/xl/_rels/workbook.xml.rels)
     /// </summary>
-    internal IList<Relationship> WorkbookRelationships { get; }
-
-
-    internal XlsxPackage()
-    {
-        Relationships = new List<Relationship>();
-        WorkbookRelationships = new List<Relationship>();
-        XmlFiles = new List<XmlFile>();
-    }
+    internal IList<Relationship> WorkbookRelationships { get; } = [];
 
     /// <summary>
     /// Save the Xlsx Package to a new Stream (that the caller owns and has to dispose)
@@ -40,7 +32,7 @@ internal class XlsxPackage
     /// <returns></returns>
     internal void SaveToStream(Stream outputStream, bool compress)
     {
-        if(outputStream == null || !outputStream.CanWrite || !outputStream.CanSeek)
+        if (outputStream is not { CanWrite: true } || !outputStream.CanSeek)
         {
             throw new InvalidOperationException("Stream to save to must be writeable and seekable.");
         }
@@ -68,7 +60,7 @@ internal class XlsxPackage
         outputStream.Seek(0, SeekOrigin.Begin);
     }
 
-    private void WriteInfoXmlFile(ZipPackage pkg)
+    private static void WriteInfoXmlFile(ZipPackage pkg)
     {
         var infoXml = new XmlFile
         {

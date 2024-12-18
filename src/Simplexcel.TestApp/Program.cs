@@ -243,7 +243,8 @@ class Program
         public long Value { get; set; }
 
         [XlsxColumn("Total")]
-        public decimal TotalPrice { get { return Price * Quantity; } }
+        public decimal TotalPrice => Price * Quantity;
+
         public DateTime CreatedUtc { get; set; }
 
         [XlsxIgnoreColumn]

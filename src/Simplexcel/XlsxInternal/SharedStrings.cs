@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Collections.Generic;
 using System.Xml.Linq;
-using System.Text.RegularExpressions;
 
 namespace Simplexcel.XlsxInternal;
 
@@ -12,12 +10,13 @@ namespace Simplexcel.XlsxInternal;
 /// </summary>
 internal class SharedStrings
 {
-    private readonly Dictionary<string, int> _sharedStrings = new Dictionary<string, int>(StringComparer.Ordinal);
+    private readonly Dictionary<string, int> _sharedStrings = new(StringComparer.Ordinal);
 
     /// <summary>
     /// The number of Unique Strings
     /// </summary>
-    internal int UniqueCount { get { return _sharedStrings.Count; } }
+    internal int UniqueCount => _sharedStrings.Count;
+
     /// <summary>
     /// The number of total Strings (incl. duplicate uses of the same string)
     /// </summary>
@@ -31,10 +30,7 @@ internal class SharedStrings
     internal int GetStringIndex(string input)
     {
         // NULL is treated as an empty string
-        if (input == null)
-        {
-            input = string.Empty;
-        }
+        input ??= string.Empty;
 
         Count++;
         if (!_sharedStrings.ContainsKey(input))

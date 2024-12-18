@@ -10,8 +10,8 @@ namespace Simplexcel.XlsxInternal;
 internal sealed class ZipPackage : IDisposable
 {
     private readonly ZipArchive _archive;
-    private readonly IDictionary<string, string> _contentTypes;
-    private readonly IList<Relationship> _relationships;
+    private readonly IDictionary<string, string> _contentTypes = new Dictionary<string, string>();
+    private readonly IList<Relationship> _relationships = [];
     private bool _closed;
     private readonly bool _compress;
 
@@ -23,8 +23,6 @@ internal sealed class ZipPackage : IDisposable
         }
 
         _archive = new ZipArchive(underlyingStream, ZipArchiveMode.Create, true);
-        _contentTypes = new Dictionary<string, string>();
-        _relationships = new List<Relationship>();
         _compress = useCompression;
     }
 

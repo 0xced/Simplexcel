@@ -8,7 +8,7 @@ namespace Simplexcel;
 /// </summary>
 public sealed class ColumnWidthCollection : IEnumerable<KeyValuePair<int, double>>
 {
-    private readonly Dictionary<int, double> _columnWidths = new Dictionary<int, double>();
+    private readonly Dictionary<int, double> _columnWidths = new();
 
     /// <summary>
     /// Get or set the width of a column (Zero-based column index, null value = auto)
@@ -17,7 +17,7 @@ public sealed class ColumnWidthCollection : IEnumerable<KeyValuePair<int, double
     /// <returns></returns>
     public double? this[int column]
     {
-        get { return _columnWidths.ContainsKey(column) ? _columnWidths[column] : (double?)null; }
+        get => _columnWidths.ContainsKey(column) ? _columnWidths[column] : null;
         set
         {
             if (!value.HasValue)

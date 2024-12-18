@@ -25,7 +25,7 @@ internal static class XlsxWriter
 
     /// <summary>
     /// This does the actual writing by manually creating the XML according to ECMA-376, 3rd Edition, Part 1's SpreadsheetML.
-    /// 
+    ///
     /// Note that in many cases, the order of elements in an XML file matters!
     /// </summary>
     private static class XlsxWriterInternal
@@ -318,7 +318,7 @@ internal static class XlsxWriter
                     sheetView.Add(paneElem);
                 }
 
-                foreach (var sel in sv.Selections ?? Enumerable.Empty<Selection>())
+                foreach (var sel in sv.Selections ?? [])
                 {
                     var selElem = new XElement(Namespaces.workbook + "selection");
                     if (!string.IsNullOrEmpty(sel.ActiveCell))
@@ -372,14 +372,14 @@ internal static class XlsxWriter
             }
 
             var rowBreaks = sheet.GetRowBreaks();
-            if (rowBreaks != null && rowBreaks.Count > 0)
+            if (rowBreaks is { Count: > 0 })
             {
                 var rowBreaksElem = PageBreakCollectionToXml("rowBreaks", rowBreaks);
                 doc.Root.Add(rowBreaksElem);
             }
 
             var colBreaks = sheet.GetColumnBreaks();
-            if (colBreaks != null && colBreaks.Count > 0)
+            if (colBreaks is { Count: > 0 })
             {
                 var colBreaksElem = PageBreakCollectionToXml("colBreaks", colBreaks);
                 doc.Root.Add(colBreaksElem);
@@ -657,7 +657,7 @@ internal static class XlsxWriter
                         }
                         break;
                     default:
-                        throw new ArgumentException("Unknown Cell Type: " + cell.Value.CellType + " in cell " + cell.Key.ToString() + " of " + sheet.Name);
+                        throw new ArgumentException("Unknown Cell Type: " + cell.Value.CellType + " in cell " + cell.Key + " of " + sheet.Name);
                 }
 
                 rows[cell.Key.Row].Cells.Add(xc);
