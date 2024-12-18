@@ -13,7 +13,7 @@ public class XlsxColumnAttribute : Attribute
     /// If this is NULL, the Property Name will be used.
     /// If this is an Empty string, then no text will be in the Cell header.
     /// </summary>
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// The Index of the Column, e.g., "0" for "A".

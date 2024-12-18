@@ -49,13 +49,13 @@ public class PatternFill : IEquatable<PatternFill>
     /// <summary>
     /// Compare to another <see cref="PatternFill"/> object.
     /// </summary>
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
         => Equals(obj as PatternFill);
 
     /// <summary>
     /// Compare to another <see cref="PatternFill"/> object.
     /// </summary>
-    public bool Equals(PatternFill other)
+    public bool Equals(PatternFill? other)
     {
         if (other is null) return false;
         if (ReferenceEquals(this, other)) return true;

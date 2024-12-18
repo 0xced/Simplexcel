@@ -68,7 +68,7 @@ internal static class XlsxWriter
             foreach (var sheet in workbook.Sheets)
             {
                 i++;
-                var rel = CreateSheetFile(sheet, i, relationshipCounter, styles, ignoredErrors[sheet], sharedStrings, out XmlFile sheetRels);
+                var rel = CreateSheetFile(sheet, i, relationshipCounter, styles, ignoredErrors[sheet], sharedStrings, out XmlFile? sheetRels);
                 if (sheetRels != null)
                 {
                     package.XmlFiles.Add(sheetRels);
@@ -154,12 +154,6 @@ internal static class XlsxWriter
         /// <returns></returns>
         private static Relationship CreateCoreFileProperties(Workbook workbook, RelationshipCounter relationshipCounter)
         {
-            var file = new XmlFile
-            {
-                ContentType = "application/vnd.openxmlformats-package.core-properties+xml",
-                Path = "docProps/core.xml"
-            };
-
             var dc = Namespaces.dc;
             var dcterms = Namespaces.dcterms;
             var xsi = Namespaces.xsi;
@@ -189,7 +183,12 @@ internal static class XlsxWriter
 
             doc.Add(root);
 
-            file.Content = doc;
+            var file = new XmlFile
+            {
+                Content = doc,
+                ContentType = "application/vnd.openxmlformats-package.core-properties+xml",
+                Path = "docProps/core.xml"
+            };
 
             var rel = new Relationship(relationshipCounter)
             {
@@ -208,12 +207,6 @@ internal static class XlsxWriter
         /// <returns></returns>
         private static Relationship CreateWorkbookFile(List<SheetPackageInfo> sheetInfos, RelationshipCounter relationshipCounter)
         {
-            var file = new XmlFile
-            {
-                ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml",
-                Path = "xl/workbook.xml"
-            };
-
             var doc = new XDocument(new XElement(Namespaces.workbook + "workbook",
                 new XAttribute("xmlns", Namespaces.workbook),
                 new XAttribute(XNamespace.Xmlns + "r", Namespaces.workbookRelationship)
@@ -260,7 +253,12 @@ internal static class XlsxWriter
                 doc.Root.Add(dne);
             }
 
-            file.Content = doc;
+            var file = new XmlFile
+            {
+                Content = doc,
+                ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml",
+                Path = "xl/workbook.xml"
+            };
 
             var rel = new Relationship(relationshipCounter)
             {
@@ -404,7 +402,7 @@ internal static class XlsxWriter
                 {
                     if (cellPair.Value.CellType != CellType.Number) { continue; }
                     var cell = cellPair.Value;
-                    var numVal = (Decimal)cell.Value;
+                    var numVal = cell.Value as decimal?;
                     if (!Cell.IsLargeNumber(numVal)) { continue; }
 
                     cell.Format = BuiltInCellFormat.General;
@@ -431,15 +429,9 @@ internal static class XlsxWriter
         /// <param name="sharedStrings"></param>
         /// <param name="sheetRels">If this worksheet needs an xl/worksheets/_rels/sheetX.xml.rels file</param>
         /// <returns></returns>
-        private static Relationship CreateSheetFile(Worksheet sheet, int sheetIndex, RelationshipCounter relationshipCounter, IList<XlsxCellStyle> styles, XlsxIgnoredErrorCollection ignoredErrors, SharedStrings sharedStrings, out XmlFile sheetRels)
+        private static Relationship CreateSheetFile(Worksheet sheet, int sheetIndex, RelationshipCounter relationshipCounter, IList<XlsxCellStyle> styles, XlsxIgnoredErrorCollection ignoredErrors, SharedStrings sharedStrings, out XmlFile? sheetRels)
         {
             var rows = GetXlsxRows(sheet, styles, sharedStrings);
-
-            var file = new XmlFile
-            {
-                ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml",
-                Path = "xl/worksheets/sheet" + sheetIndex + ".xml"
-            };
 
             var doc = new XDocument(new XElement(Namespaces.workbook + "worksheet",
                 new XAttribute("xmlns", Namespaces.workbook),
@@ -473,7 +465,7 @@ internal static class XlsxWriter
             }
 
             var sheetData = new XElement(Namespaces.workbook + "sheetData");
-            XlsxRow firstRow = null;
+            XlsxRow? firstRow = null;
             foreach (var row in rows.OrderBy(rk => rk.Key))
             {
                 firstRow ??= row.Value;
@@ -513,12 +505,6 @@ internal static class XlsxWriter
             var hyperlinks = sheet.Cells.Where(c => c.Value != null && !string.IsNullOrEmpty(c.Value.Hyperlink)).ToList();
             if (hyperlinks.Count > 0)
             {
-                sheetRels = new XmlFile
-                {
-                    Path = "xl/worksheets/_rels/sheet" + sheetIndex + ".xml.rels",
-                    ContentType = "application/vnd.openxmlformats-package.relationships+xml"
-                };
-
                 var hlRelsElem = new XElement(Namespaces.relationship + "Relationships");
 
                 var hlElem = new XElement(Namespaces.workbook + "hyperlinks");
@@ -540,7 +526,12 @@ internal static class XlsxWriter
                         new XAttribute("TargetMode", "External")));
                 }
                 doc.Root.Add(hlElem);
-                sheetRels.Content = new XDocument();
+                sheetRels = new XmlFile
+                {
+                    Content = new XDocument(),
+                    Path = "xl/worksheets/_rels/sheet" + sheetIndex + ".xml.rels",
+                    ContentType = "application/vnd.openxmlformats-package.relationships+xml"
+                };
                 sheetRels.Content.Add(hlRelsElem);
             }
 
@@ -551,7 +542,13 @@ internal static class XlsxWriter
             WritePageBreaks(sheet, doc);
             WriteIgnoredErrors(ignoredErrors, doc);
 
-            file.Content = doc;
+            var file = new XmlFile
+            {
+                Content = doc,
+                ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml",
+                Path = "xl/worksheets/sheet" + sheetIndex + ".xml"
+            };
+
             var rel = new Relationship(relationshipCounter)
             {
                 Target = file,
@@ -621,23 +618,24 @@ internal static class XlsxWriter
                 {
                     case CellType.Text:
                         xc.CellType = XlsxCellTypes.SharedString;
-                        xc.Value = sharedStrings.GetStringIndex((string)cell.Value.Value);
+                        xc.Value = sharedStrings.GetStringIndex(cell.Value.Value as string);
                         break;
                     case CellType.Formula:
                         xc.CellType = XlsxCellTypes.FormulaString;
-                        xc.Value = (string)cell.Value.Value;
+                        xc.Value = cell.Value.Value as string;
                         break;
                     case CellType.Number:
                         // Fun: Excel can't handle large numbers as numbers
                         // https://support.microsoft.com/en-us/help/2643223/long-numbers-are-displayed-incorrectly-in-excel
-                        var numVal = (Decimal)cell.Value.Value;
+                        var numVal = cell.Value.Value as decimal?;
+                        var numValString = numVal?.ToString(System.Globalization.CultureInfo.InvariantCulture);
                         if (sheet.LargeNumberHandlingMode != LargeNumberHandlingMode.None && Cell.IsLargeNumber(numVal))
                         {
                             switch (sheet.LargeNumberHandlingMode)
                             {
                                 case LargeNumberHandlingMode.StoreAsText:
                                     xc.CellType = XlsxCellTypes.SharedString;
-                                    xc.Value = sharedStrings.GetStringIndex(numVal.ToString(System.Globalization.CultureInfo.InvariantCulture));
+                                    xc.Value = sharedStrings.GetStringIndex(numValString);
                                     break;
                                 default:
                                     throw new InvalidOperationException("Unhandled LargeNumberHandlingMode: " + sheet.LargeNumberHandlingMode);
@@ -646,7 +644,7 @@ internal static class XlsxWriter
                         else
                         {
                             xc.CellType = XlsxCellTypes.Number;
-                            xc.Value = ((Decimal)cell.Value.Value).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                            xc.Value = numValString;
                         }
                         break;
                     case CellType.Date:

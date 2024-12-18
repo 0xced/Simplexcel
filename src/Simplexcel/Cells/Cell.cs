@@ -24,7 +24,7 @@ public sealed class Cell
     /// <param name="type"> </param>
     /// <param name="value"> </param>
     /// <param name="format"> </param>
-    public Cell(CellType type, object value, string format)
+    public Cell(CellType type, object? value, string format)
     {
         XlsxCellStyle = new XlsxCellStyle
         {
@@ -42,7 +42,14 @@ public sealed class Cell
     public string Format
     {
         get => XlsxCellStyle.Format;
-        set => XlsxCellStyle.Format = value;
+        set
+        {
+            if (value is null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+            XlsxCellStyle.Format = value;
+        }
     }
 
     /// <summary>
@@ -60,7 +67,14 @@ public sealed class Cell
     public string FontName
     {
         get => XlsxCellStyle.Font.Name;
-        set => XlsxCellStyle.Font.Name = value;
+        set
+        {
+            if (value is null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+            XlsxCellStyle.Font.Name = value;
+        }
     }
 
     /// <summary>
@@ -111,7 +125,7 @@ public sealed class Cell
     /// <summary>
     /// The interior/fill color.
     /// </summary>
-    public PatternFill Fill
+    public PatternFill? Fill
     {
         get => XlsxCellStyle.Fill;
         set => XlsxCellStyle.Fill = value;
@@ -148,12 +162,12 @@ public sealed class Cell
     /// <summary>
     /// The Content of the cell.
     /// </summary>
-    public object Value { get; set; }
+    public object? Value { get; set; }
 
     /// <summary>
     /// Should this cell be a Hyperlink to something?
     /// </summary>
-    public string Hyperlink { get; set; }
+    public string? Hyperlink { get; set; }
 
     /// <summary>
     /// Create a new <see cref="Cell"/> that includes a Formula (e.g., SUM(A1:A5)). Do not include the initial = sign!

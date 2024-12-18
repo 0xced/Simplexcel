@@ -21,12 +21,12 @@ public sealed class Workbook
     /// <summary>
     /// The title of the Workbook
     /// </summary>
-    public string Title { get; set; }
+    public string? Title { get; set; }
 
     /// <summary>
     /// The author of the Workbook
     /// </summary>
-    public string Author { get; set; }
+    public string? Author { get; set; }
 
     /// <summary>
     /// How many <see cref="Worksheet">sheets</see> are in the Workbook currently?

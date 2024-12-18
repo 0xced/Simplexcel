@@ -69,22 +69,16 @@ internal static class StyleWriter
                 numberFormats.Add(style.Format);
             }
 
-            if (style.Font != null && !uniqueFonts.Contains(style.Font))
+            if (!uniqueFonts.Contains(style.Font))
             {
                 uniqueFonts.Add(style.Font);
             }
 
-            if (style.Fill != null && !uniqueFills.Contains(style.Fill))
+            if (style.Fill is not null && !uniqueFills.Contains(style.Fill))
             {
                 uniqueFills.Add(style.Fill);
             }
         }
-
-        var file = new XmlFile
-        {
-            ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml",
-            Path = "xl/styles.xml"
-        };
 
         var doc = new XDocument(new XElement(Namespaces.workbook + "styleSheet", new XAttribute("xmlns", Namespaces.workbook)));
 
@@ -95,9 +89,12 @@ internal static class StyleWriter
         StyleAddCellStyleXfsElement(doc);
         StyleAddCellXfsElement(doc, styles, uniqueBorders, numberFormats, uniqueFonts, uniqueFills);
 
-        file.Content = doc;
-
-        return file;
+        return new XmlFile
+        {
+            Content = doc,
+            ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml",
+            Path = "xl/styles.xml"
+        };
     }
 
     private static void StyleAddCellXfsElement(XDocument doc, IList<XlsxCellStyle> styles, IList<CellBorder> uniqueBorders, IList<string> numberFormats, IList<XlsxFont> fontInfos, IList<PatternFill> fills)
@@ -153,12 +150,12 @@ internal static class StyleWriter
 
     private static void AddAlignmentElement(XElement elem, XlsxCellStyle style)
     {
-        if(elem == null)
+        if (elem is null)
         {
             throw new ArgumentNullException(nameof(elem));
         }
 
-        if (style == null)
+        if (style is null)
         {
             throw new ArgumentNullException(nameof(style));
         }

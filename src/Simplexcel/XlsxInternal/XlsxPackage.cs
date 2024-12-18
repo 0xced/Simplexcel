@@ -87,12 +87,6 @@ internal class XlsxPackage
     /// <returns></returns>
     internal XmlFile WorkbookRelsXml()
     {
-        var file = new XmlFile
-        {
-            ContentType = "application/vnd.openxmlformats-package.relationships+xml",
-            Path = "xl/_rels/workbook.xml.rels"
-        };
-
         var content = new XDocument(new XElement(Namespaces.relationship + "Relationships", new XAttribute("xmlns", Namespaces.relationship)));
         foreach (var rel in WorkbookRelationships)
         {
@@ -103,8 +97,12 @@ internal class XlsxPackage
 
             content.Root.Add(elem);
         }
-        file.Content = content;
 
-        return file;
+        return new XmlFile
+        {
+            Content = content,
+            ContentType = "application/vnd.openxmlformats-package.relationships+xml",
+            Path = "xl/_rels/workbook.xml.rels"
+        };
     }
 }

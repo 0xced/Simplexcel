@@ -8,9 +8,9 @@ namespace Simplexcel;
 /// </summary>
 public sealed partial class Worksheet
 {
-    private List<SheetView> _sheetViews;
-    private List<PageBreak> _rowBreaks;
-    private List<PageBreak> _columnBreaks;
+    private List<SheetView>? _sheetViews;
+    private List<PageBreak>? _rowBreaks;
+    private List<PageBreak>? _columnBreaks;
 
     /// <summary>
     /// Get a list of characters that are invalid to use in the Sheet Name
@@ -186,17 +186,17 @@ public sealed partial class Worksheet
         _sheetViews.Add(sheetView);
     }
 
-    internal ICollection<SheetView> GetSheetViews()
+    internal ICollection<SheetView>? GetSheetViews()
     {
         return _sheetViews;
     }
 
-    internal ICollection<PageBreak> GetRowBreaks()
+    internal ICollection<PageBreak>? GetRowBreaks()
     {
         return _rowBreaks;
     }
 
-    internal ICollection<PageBreak> GetColumnBreaks()
+    internal ICollection<PageBreak>? GetColumnBreaks()
     {
         return _columnBreaks;
     }

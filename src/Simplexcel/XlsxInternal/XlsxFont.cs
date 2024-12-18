@@ -17,7 +17,7 @@ internal class XlsxFont : IEquatable<XlsxFont>
         Size = 11;
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
@@ -25,15 +25,15 @@ internal class XlsxFont : IEquatable<XlsxFont>
         return Equals((XlsxFont)obj);
     }
 
-    public bool Equals(XlsxFont other)
+    public bool Equals(XlsxFont? other)
     {
         if (other is null) return false;
         if (ReferenceEquals(this, other)) return true;
-        return Equals(other.Name, Name) 
-               && other.Size == Size 
-               && other.Bold.Equals(Bold) 
-               && other.Italic.Equals(Italic) 
-               && other.Underline.Equals(Underline) 
+        return Equals(other.Name, Name)
+               && other.Size == Size
+               && other.Bold.Equals(Bold)
+               && other.Italic.Equals(Italic)
+               && other.Underline.Equals(Underline)
                && other.TextColor.Equals(TextColor);
     }
 

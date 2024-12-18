@@ -17,7 +17,7 @@ public sealed class Pane
     public int? XSplit { get; set; }
 
     /// <summary>
-    /// Vertical position of the split, in 1/20th of a point; 0 (zero) if none. If the pane is frozen, 
+    /// Vertical position of the split, in 1/20th of a point; 0 (zero) if none. If the pane is frozen,
     /// this value indicates the number of rows visible in the left pane
     /// </summary>
     public int? YSplit { get; set; }
@@ -35,5 +35,5 @@ public sealed class Pane
     /// <summary>
     /// Location of the top left visible cell in the bottom right pane (when in Left-To-Right mode)
     /// </summary>
-    public string TopLeftCell { get; set; }
+    public string? TopLeftCell { get; set; }
 }

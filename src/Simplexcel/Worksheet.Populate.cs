@@ -89,18 +89,20 @@ public sealed partial class Worksheet
                 continue;
             }
 
-            var pi = new PopulateCellInfo();
             var colInfo = prop.GetXlsxColumnAttribute();
-            pi.Name = colInfo?.Name == null ? prop.Name : colInfo.Name;
-            pi.ColumnIndex = colInfo?.ColumnIndex != null ? colInfo.ColumnIndex : -1; // -1 will later be reassigned
-            pi.TempColumnIndex = tempCol++;
+            var pi = new PopulateCellInfo
+            {
+                Name = colInfo?.Name ?? prop.Name,
+                ColumnIndex = colInfo?.ColumnIndex ?? -1, // -1 will later be reassigned
+                TempColumnIndex = tempCol++,
+                Property = prop,
+            };
 
             if (pi.ColumnIndex > maxCol)
             {
                 maxCol = pi.ColumnIndex;
             }
 
-            pi.Property = prop;
             cols[pi.TempColumnIndex] = pi;
         }
 
@@ -122,7 +124,7 @@ public sealed partial class Worksheet
         PopulateCache.Value.AddOrUpdate(type, cols, (_, _) => cols);
     }
 
-    private static Dictionary<int, PopulateCellInfo> TryGetFromCache(Type type)
+    private static Dictionary<int, PopulateCellInfo>? TryGetFromCache(Type type)
     {
         if (!PopulateCache.IsValueCreated)
         {
@@ -134,9 +136,9 @@ public sealed partial class Worksheet
 
     private class PopulateCellInfo
     {
-        public string Name { get; set; }
-        public int ColumnIndex { get; set; }
-        public int TempColumnIndex { get; set; }
-        public PropertyInfo Property { get; set; }
+        public required string Name { get; init; }
+        public required int ColumnIndex { get; set; }
+        public required int TempColumnIndex { get; init; }
+        public required PropertyInfo Property { get; init; }
     }
 }

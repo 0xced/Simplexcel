@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -8,7 +8,7 @@ internal static class ExtensionMethods
 {
     internal static IEnumerable<PropertyInfo> GetAllProperties(this TypeInfo typeInfo) => GetAllForType(typeInfo, ti => ti.DeclaredProperties);
 
-    private static IEnumerable<T> GetAllForType<T>(TypeInfo typeInfo, Func<TypeInfo, IEnumerable<T>> accessor)
+    private static IEnumerable<T> GetAllForType<T>(TypeInfo? typeInfo, Func<TypeInfo, IEnumerable<T>> accessor)
     {
         if (typeInfo == null)
         {
@@ -42,7 +42,7 @@ internal static class ExtensionMethods
     /// Licensed under MIT License
     /// https://www.bouncycastle.org/csharp/licence.html
     /// </remarks>
-    internal static string ToHexString(this IReadOnlyList<byte> bytes, int offset = 0, int length = -1)
+    internal static string ToHexString(this IReadOnlyList<byte>? bytes, int offset = 0, int length = -1)
     {
         if (bytes == null || bytes.Count == 0) { return string.Empty; }
         if (length == -1) { length = bytes.Count; }

@@ -10,15 +10,15 @@ internal class XmlFile
     /// <summary>
     /// The path to the file within the package, without leading /
     /// </summary>
-    internal string Path { get; set; }
+    internal required string Path { get; init; }
 
     /// <summary>
     /// The Content Type of the file (default: application/xml)
     /// </summary>
-    internal string ContentType { get; set; } = "application/xml";
+    internal string ContentType { get; init; } = "application/xml";
 
     /// <summary>
     /// The actual file content
     /// </summary>
-    internal XDocument Content { get; set; }
+    internal required XDocument Content { get; init; }
 }

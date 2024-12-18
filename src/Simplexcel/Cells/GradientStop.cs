@@ -14,7 +14,7 @@ internal class GradientStop : IEquatable<GradientStop>
     /// </summary>
     public Color Color { get; set; }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
@@ -22,7 +22,7 @@ internal class GradientStop : IEquatable<GradientStop>
         return Equals((GradientStop)obj);
     }
 
-    public bool Equals(GradientStop other)
+    public bool Equals(GradientStop? other)
     {
         if (other is null) return false;
         if (ReferenceEquals(this, other)) return true;

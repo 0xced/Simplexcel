@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Simplexcel.XlsxInternal;
 
@@ -7,24 +7,24 @@ namespace Simplexcel.XlsxInternal;
 /// </summary>
 internal class XlsxCellStyle : IEquatable<XlsxCellStyle>
 {
-    internal XlsxFont Font { get; set; } = new();
+    internal XlsxFont Font { get; } = new();
         
     internal CellBorder Border { get; set; }
-        
-    internal string Format { get; set; }
+
+    internal required string Format { get; set; }
 
     internal VerticalAlign VerticalAlignment { get; set; }
 
     internal HorizontalAlign HorizontalAlignment { get; set; }
 
-    internal PatternFill Fill { get; set; } = new();
+    internal PatternFill? Fill { get; set; }
 
     /// <summary>
     /// Compare this <see cref="XlsxCellStyle"/> to another <see cref="XlsxCellStyle"/>
     /// </summary>
     /// <param name="obj"></param>
     /// <returns></returns>
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
@@ -37,7 +37,7 @@ internal class XlsxCellStyle : IEquatable<XlsxCellStyle>
     /// </summary>
     /// <param name="other"></param>
     /// <returns></returns>
-    public bool Equals(XlsxCellStyle other)
+    public bool Equals(XlsxCellStyle? other)
     {
         if (other is null) return false;
         if (ReferenceEquals(this, other)) return true;

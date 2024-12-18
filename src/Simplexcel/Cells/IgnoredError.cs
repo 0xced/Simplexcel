@@ -83,7 +83,7 @@ public sealed class IgnoredError
     /// </summary>
     /// <param name="obj"></param>
     /// <returns></returns>
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
@@ -96,7 +96,7 @@ public sealed class IgnoredError
     /// </summary>
     /// <param name="other"></param>
     /// <returns></returns>
-    public bool Equals(IgnoredError other)
+    public bool Equals(IgnoredError? other)
     {
         if (other is null) return false;
         if (ReferenceEquals(this, other)) return true;

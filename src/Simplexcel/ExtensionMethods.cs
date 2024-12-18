@@ -43,7 +43,7 @@ public static class SimplexcelExtensionMethods
         return prop.GetCustomAttributes(XlsxIgnoreColumnType).Any();
     }
 
-    internal static XlsxColumnAttribute GetXlsxColumnAttribute(this PropertyInfo prop)
+    internal static XlsxColumnAttribute? GetXlsxColumnAttribute(this PropertyInfo prop)
     {
         if (prop == null)
         {

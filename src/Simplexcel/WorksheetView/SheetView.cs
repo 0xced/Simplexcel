@@ -14,9 +14,9 @@ namespace Simplexcel;
 /// </summary>
 public sealed class SheetView
 {
-    private List<Selection> _selections;
+    private List<Selection>? _selections;
 
-    internal ICollection<Selection> Selections => _selections;
+    internal ICollection<Selection>? Selections => _selections;
 
     /// <summary>
     /// Flag indicating whether this sheet is selected.
@@ -39,7 +39,7 @@ public sealed class SheetView
     /// <summary>
     /// The pane that this SheetView applies to
     /// </summary>
-    public Pane Pane { get; set; }
+    public Pane? Pane { get; set; }
 
     /// <summary>
     /// Add the given selection to the SheetView

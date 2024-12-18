@@ -13,7 +13,7 @@ public sealed class Selection
 	/// <summary>
 	/// Location of the active cell. E.g., "A1"
 	/// </summary>
-	public string ActiveCell { get; set; }
+	public string? ActiveCell { get; set; }
 
 	// activeCellId
 	// sqref

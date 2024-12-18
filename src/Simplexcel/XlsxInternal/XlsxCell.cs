@@ -7,21 +7,21 @@
 internal class XlsxCell
 {
     /// <see cref="XlsxCellTypes"/>
-    internal string CellType { get; set; }
+    internal string CellType { get; set; } = "";
 
     /// <summary>
     /// r (Reference) An "A1" style reference to the location of this cell
     /// The possible values for this attribute are defined by the ST_CellRef simple type (§18.18.7).
     /// </summary>
-    internal string Reference { get; set; }
+    internal required string Reference { get; init; }
 
     /// <summary>
     /// s (StyleIndex)
     /// </summary>
-    internal int StyleIndex { get; set; }
+    internal int StyleIndex { get; init; }
 
     /// <summary>
     /// The v element
     /// </summary>
-    internal object Value { get; set; }
+    internal object? Value { get; set; }
 }

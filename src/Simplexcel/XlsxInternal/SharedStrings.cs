@@ -27,7 +27,7 @@ internal class SharedStrings
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    internal int GetStringIndex(string input)
+    internal int GetStringIndex(string? input)
     {
         // NULL is treated as an empty string
         input ??= string.Empty;
@@ -46,12 +46,6 @@ internal class SharedStrings
     /// <returns></returns>
     internal XmlFile ToXmlFile()
     {
-        var file = new XmlFile
-        {
-            ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml",
-            Path = "xl/sharedStrings.xml"
-        };
-
         var sst = new XDocument(new XElement(Namespaces.x + "sst",
             new XAttribute("xmlns", Namespaces.x),
             new XAttribute("count", Count),
@@ -69,9 +63,12 @@ internal class SharedStrings
             sst.Root.Add(siElem);
         }
 
-        file.Content = sst;
-
-        return file;
+        return new XmlFile
+        {
+            Content = sst,
+            ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml",
+            Path = "xl/sharedStrings.xml"
+        };
     }
 
     internal Relationship ToRelationship(RelationshipCounter relationshipCounter)
