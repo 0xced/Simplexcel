@@ -26,11 +26,12 @@ internal class GradientFill : IEquatable<GradientFill>
 
     public override int GetHashCode()
     {
-        unchecked
+        var hashCode = new HashCode();
+        foreach (var stop in Stops)
         {
-            int result = Stops.GetCollectionHashCode();
-            return result;
+            hashCode.Add(stop);
         }
+        return hashCode.ToHashCode();
     }
 
     public static bool operator ==(GradientFill left, GradientFill right)

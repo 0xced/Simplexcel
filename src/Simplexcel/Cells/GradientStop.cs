@@ -30,15 +30,7 @@ internal class GradientStop : IEquatable<GradientStop>
                && Equals(other.Color, Color);
     }
 
-    public override int GetHashCode()
-    {
-        unchecked
-        {
-            int result = Position.GetHashCode();
-            result = (result * 397) ^ Color.GetHashCode();
-            return result;
-        }
-    }
+    public override int GetHashCode() => HashCode.Combine(Position, Color);
 
     public static bool operator ==(GradientStop left, GradientStop right)
     {

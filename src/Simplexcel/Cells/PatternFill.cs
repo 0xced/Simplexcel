@@ -65,22 +65,7 @@ public class PatternFill : IEquatable<PatternFill>
     }
 
     /// <inheritdoc/>
-    public override int GetHashCode()
-    {
-        unchecked
-        {
-            int result = PatternType.GetHashCode();
-            if (PatternColor.HasValue)
-            {
-                result = (result * 397) ^ PatternColor.GetHashCode();
-            }
-            if (BackgroundColor.HasValue)
-            {
-                result = (result * 397) ^ BackgroundColor.GetHashCode();
-            }
-            return result;
-        }
-    }
+    public override int GetHashCode() => HashCode.Combine(PatternType, PatternColor, BackgroundColor);
 
     /// <summary>
     /// Check whether the <see cref="PatternFill"/> objects <paramref name="left"/> and <paramref name="right"/> are <see cref="Equals(PatternFill)">Equal</see>.

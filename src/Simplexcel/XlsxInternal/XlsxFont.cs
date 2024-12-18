@@ -37,19 +37,7 @@ internal class XlsxFont : IEquatable<XlsxFont>
                && other.TextColor.Equals(TextColor);
     }
 
-    public override int GetHashCode()
-    {
-        unchecked
-        {
-            int result = (Name != null ? Name.GetHashCode() : 0);
-            result = (result*397) ^ Size;
-            result = (result*397) ^ Bold.GetHashCode();
-            result = (result*397) ^ Italic.GetHashCode();
-            result = (result*397) ^ Underline.GetHashCode();
-            result = (result*397) ^ TextColor.GetHashCode();
-            return result;
-        }
-    }
+    public override int GetHashCode() => HashCode.Combine(Name, Size, Bold, Italic, Underline, TextColor);
 
     public static bool operator ==(XlsxFont left, XlsxFont right)
     {

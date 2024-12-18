@@ -33,20 +33,6 @@ internal static class ExtensionMethods
         }
     }
 
-    internal static int GetCollectionHashCode<T>(this IEnumerable<T> input)
-    {
-        var hashCode = 0;
-        if (input != null)
-        {
-            foreach (var item in input)
-            {
-                var itemHashCode = item == null ? 0 : item.GetHashCode();
-                hashCode = (hashCode * 397) ^ itemHashCode;
-            }
-        }
-        return hashCode;
-    }
-
     private static readonly char[] HexEncodingTable = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
 
     /// <remarks>

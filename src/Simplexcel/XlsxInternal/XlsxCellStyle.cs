@@ -51,19 +51,7 @@ internal class XlsxCellStyle : IEquatable<XlsxCellStyle>
             ;
     }
 
-    public override int GetHashCode()
-    {
-        unchecked
-        {
-            int result = Border.GetHashCode();
-            result = (result * 397) ^ Font.GetHashCode();
-            result = (result * 397) ^ Format.GetHashCode();
-            result = (result * 397) ^ VerticalAlignment.GetHashCode();
-            result = (result * 397) ^ HorizontalAlignment.GetHashCode();
-            result = (result * 397) ^ Fill.GetHashCode();
-            return result;
-        }
-    }
+    public override int GetHashCode() => HashCode.Combine(Border, Font, Format, VerticalAlignment, HorizontalAlignment, Fill);
 
     /// <summary>
     /// Compare a <see cref="XlsxCellStyle"/> to another <see cref="XlsxCellStyle"/>
