@@ -4,116 +4,107 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace Simplexcel.XlsxInternal
+namespace Simplexcel.XlsxInternal;
+
+/// <summary>
+/// A Wrapper for an .xlsx file, containing all the contents and relations and logic to create the file from that content
+/// </summary>
+internal class XlsxPackage
 {
     /// <summary>
-    /// A Wrapper for an .xlsx file, containing all the contents and relations and logic to create the file from that content
+    /// All XML Files in this package
     /// </summary>
-    internal class XlsxPackage
+    internal IList<XmlFile> XmlFiles { get; } = [];
+
+    /// <summary>
+    /// Package-level relationships (/_rels/.rels)
+    /// </summary>
+    internal IList<Relationship> Relationships { get; } = [];
+
+    /// <summary>
+    /// Workbook-level relationships (/xl/_rels/workbook.xml.rels)
+    /// </summary>
+    internal IList<Relationship> WorkbookRelationships { get; } = [];
+
+    /// <summary>
+    /// Save the Xlsx Package to a new Stream (that the caller owns and has to dispose)
+    /// </summary>
+    /// <returns></returns>
+    internal void SaveToStream(Stream outputStream, bool compress)
     {
-        /// <summary>
-        /// All XML Files in this package
-        /// </summary>
-        internal IList<XmlFile> XmlFiles { get; }
-
-        /// <summary>
-        /// Package-level relationships (/_rels/.rels)
-        /// </summary>
-        internal IList<Relationship> Relationships { get; }
-
-        /// <summary>
-        /// Workbook-level relationships (/xl/_rels/workbook.xml.rels)
-        /// </summary>
-        internal IList<Relationship> WorkbookRelationships { get; }
-
-
-        internal XlsxPackage()
+        if (outputStream is not { CanWrite: true } || !outputStream.CanSeek)
         {
-            Relationships = new List<Relationship>();
-            WorkbookRelationships = new List<Relationship>();
-            XmlFiles = new List<XmlFile>();
+            throw new InvalidOperationException("Stream to save to must be writeable and seekable.");
         }
 
-        /// <summary>
-        /// Save the Xlsx Package to a new Stream (that the caller owns and has to dispose)
-        /// </summary>
-        /// <returns></returns>
-        internal void SaveToStream(Stream outputStream, bool compress)
+        using (var pkg = new ZipPackage(outputStream, compress))
         {
-            if(outputStream == null || !outputStream.CanWrite || !outputStream.CanSeek)
+            WriteInfoXmlFile(pkg);
+
+            foreach (var file in XmlFiles)
             {
-                throw new InvalidOperationException("Stream to save to must be writeable and seekable.");
-            }
+                pkg.WriteXmlFile(file);
 
-            using (var pkg = new ZipPackage(outputStream, compress))
-            {
-                WriteInfoXmlFile(pkg);
-
-                foreach (var file in XmlFiles)
+                var relations = Relationships.Where(r => r.Target == file);
+                foreach (var rel in relations)
                 {
-                    pkg.WriteXmlFile(file);
-
-                    var relations = Relationships.Where(r => r.Target == file);
-                    foreach (var rel in relations)
-                    {
-                        pkg.AddRelationship(rel);
-                    }
-                }
-
-                if (WorkbookRelationships.Count > 0)
-                {
-                    pkg.WriteXmlFile(WorkbookRelsXml());
+                    pkg.AddRelationship(rel);
                 }
             }
-            outputStream.Seek(0, SeekOrigin.Begin);
-        }
 
-        private void WriteInfoXmlFile(ZipPackage pkg)
-        {
-            var infoXml = new XmlFile
+            if (WorkbookRelationships.Count > 0)
             {
-                Path = "simplexcel.xml",
-                Content = new XDocument(new XElement(Namespaces.simplexcel + "docInfo", new XAttribute("xmlns", Namespaces.simplexcel)))
-            };
-
-            infoXml.Content.Root.Add(new XElement(Namespaces.simplexcel + "version",
-                new XAttribute("major", SimplexcelVersion.Version.Major),
-                new XAttribute("minor", SimplexcelVersion.Version.Minor),
-                new XAttribute("build", SimplexcelVersion.Version.Build),
-                new XAttribute("revision", SimplexcelVersion.Version.Revision),
-                new XText(SimplexcelVersion.VersionString)
-            ));
-
-            infoXml.Content.Root.Add(new XElement(Namespaces.simplexcel + "created", DateTime.UtcNow));
-
-            pkg.WriteXmlFile(infoXml);
-        }
-
-        /// <summary>
-        /// Create the xl/_rels/workbook.xml.rels file
-        /// </summary>
-        /// <returns></returns>
-        internal XmlFile WorkbookRelsXml()
-        {
-            var file = new XmlFile
-            {
-                ContentType = "application/vnd.openxmlformats-package.relationships+xml",
-                Path = "xl/_rels/workbook.xml.rels"
-            };
-
-            var content = new XDocument(new XElement(Namespaces.relationship + "Relationships", new XAttribute("xmlns", Namespaces.relationship)));
-            foreach (var rel in WorkbookRelationships)
-            {
-                var elem = new XElement(Namespaces.relationship + "Relationship",
-                                    new XAttribute("Target", "/" + rel.Target.Path),
-                                    new XAttribute("Type", rel.Type),
-                                    new XAttribute("Id", rel.Id));
-
-                content.Root.Add(elem);
+                pkg.WriteXmlFile(WorkbookRelsXml());
             }
-            file.Content = content;
-
-            return file;
         }
+        outputStream.Seek(0, SeekOrigin.Begin);
+    }
+
+    private static void WriteInfoXmlFile(ZipPackage pkg)
+    {
+        var infoXml = new XmlFile
+        {
+            Path = "simplexcel.xml",
+            Content = new XDocument(new XElement(Namespaces.simplexcel + "docInfo", new XAttribute("xmlns", Namespaces.simplexcel)))
+        };
+
+        infoXml.Content.Root.Add(new XElement(Namespaces.simplexcel + "version",
+            new XAttribute("major", SimplexcelVersion.Version.Major),
+            new XAttribute("minor", SimplexcelVersion.Version.Minor),
+            new XAttribute("build", SimplexcelVersion.Version.Build),
+            new XAttribute("revision", SimplexcelVersion.Version.Revision),
+            new XText(SimplexcelVersion.VersionString)
+        ));
+
+        infoXml.Content.Root.Add(new XElement(Namespaces.simplexcel + "created", DateTime.UtcNow));
+
+        pkg.WriteXmlFile(infoXml);
+    }
+
+    /// <summary>
+    /// Create the xl/_rels/workbook.xml.rels file
+    /// </summary>
+    /// <returns></returns>
+    internal XmlFile WorkbookRelsXml()
+    {
+        var file = new XmlFile
+        {
+            ContentType = "application/vnd.openxmlformats-package.relationships+xml",
+            Path = "xl/_rels/workbook.xml.rels"
+        };
+
+        var content = new XDocument(new XElement(Namespaces.relationship + "Relationships", new XAttribute("xmlns", Namespaces.relationship)));
+        foreach (var rel in WorkbookRelationships)
+        {
+            var elem = new XElement(Namespaces.relationship + "Relationship",
+                new XAttribute("Target", "/" + rel.Target.Path),
+                new XAttribute("Type", rel.Type),
+                new XAttribute("Id", rel.Id));
+
+            content.Root.Add(elem);
+        }
+        file.Content = content;
+
+        return file;
     }
 }

@@ -1,13 +1,12 @@
-﻿namespace Simplexcel.XlsxInternal
-{
-    internal class RelationshipCounter
-    {
-        private int _count;
+﻿namespace Simplexcel.XlsxInternal;
 
-        internal int GetNextId()
-        {
-            _count++;
-            return _count;
-        }
+internal class RelationshipCounter
+{
+    private int _count;
+
+    internal int GetNextId()
+    {
+        _count++;
+        return _count;
     }
 }

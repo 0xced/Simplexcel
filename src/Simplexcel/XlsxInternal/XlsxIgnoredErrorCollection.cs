@@ -1,40 +1,34 @@
 ﻿using System.Collections.Generic;
 
-namespace Simplexcel.XlsxInternal
-{
-    internal sealed class XlsxIgnoredErrorCollection
-    {
-        internal IList<XlsxIgnoredError> DistinctIgnoredErrors { get; }
+namespace Simplexcel.XlsxInternal;
 
-        public XlsxIgnoredErrorCollection()
+internal sealed class XlsxIgnoredErrorCollection
+{
+    internal IList<XlsxIgnoredError> DistinctIgnoredErrors { get; } = [];
+
+    public void AddIgnoredError(CellAddress cellAddress, IgnoredError ignoredErrors)
+    {
+        if (!ignoredErrors.IsDifferentFromDefault)
         {
-            DistinctIgnoredErrors = new List<XlsxIgnoredError>();
+            return;
         }
 
-        public void AddIgnoredError(CellAddress cellAddress, IgnoredError ignoredErrors)
+        var id = ignoredErrors.GetHashCode();
+
+        foreach (var distinctIgnored in DistinctIgnoredErrors)
         {
-            if (!ignoredErrors.IsDifferentFromDefault)
+            if (distinctIgnored.IgnoredErrorId == id)
             {
+                distinctIgnored.Cells.Add(cellAddress);
                 return;
             }
-
-            var id = ignoredErrors.GetHashCode();
-
-            foreach (var distinctIgnored in DistinctIgnoredErrors)
-            {
-                if (distinctIgnored.IgnoredErrorId == id)
-                {
-                    distinctIgnored.Cells.Add(cellAddress);
-                    return;
-                }
-            }
-
-            var newIgnoredError = new XlsxIgnoredError
-            {
-                IgnoredError = ignoredErrors
-            };
-            newIgnoredError.Cells.Add(cellAddress);
-            DistinctIgnoredErrors.Add(newIgnoredError);
         }
+
+        var newIgnoredError = new XlsxIgnoredError
+        {
+            IgnoredError = ignoredErrors
+        };
+        newIgnoredError.Cells.Add(cellAddress);
+        DistinctIgnoredErrors.Add(newIgnoredError);
     }
 }
