@@ -14,6 +14,15 @@ public sealed class Workbook
     private readonly List<Worksheet> _sheets = [];
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="Workbook" /> class.
+    /// </summary>
+    public Workbook()
+    {
+        CreationDate = DateTime.UtcNow;
+        ModificationDate = CreationDate;
+    }
+
+    /// <summary>
     /// The Worksheets in this Workbook
     /// </summary>
     public IEnumerable<Worksheet> Sheets => _sheets.AsEnumerable();
@@ -27,6 +36,16 @@ public sealed class Workbook
     /// The author of the Workbook
     /// </summary>
     public string Author { get; set; }
+
+    /// <summary>
+    /// The creation date of the Workbook. Default to now in UTC, i.e. <c>DateTime.UtcNow</c>
+    /// </summary>
+    public DateTime CreationDate { get; init; }
+
+    /// <summary>
+    /// The modification date of the Workbook. Default to now in UTC, i.e. <c>DateTime.UtcNow</c>
+    /// </summary>
+    public DateTime ModificationDate { get; init; }
 
     /// <summary>
     /// How many <see cref="Worksheet">sheets</see> are in the Workbook currently?

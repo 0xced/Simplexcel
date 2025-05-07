@@ -109,7 +109,7 @@ internal static class XlsxWriter
             package.Relationships.Add(wb);
 
             // xl/_rels/workbook.xml.rels
-            package.SaveToStream(outputStream, compress);
+            package.SaveToStream(outputStream, compress, workbook.CreationDate);
         }
 
         /// <summary>
@@ -183,8 +183,8 @@ internal static class XlsxWriter
                 root.Add(new XElement(cp + "lastModifiedBy", workbook.Author));
             }
 
-            root.Add(new XElement(dcterms + "created", DateTime.UtcNow, new XAttribute(xsi + "type", "dcterms:W3CDTF")));
-            root.Add(new XElement(dcterms + "modified", DateTime.UtcNow, new XAttribute(xsi + "type", "dcterms:W3CDTF")));
+            root.Add(new XElement(dcterms + "created", workbook.CreationDate, new XAttribute(xsi + "type", "dcterms:W3CDTF")));
+            root.Add(new XElement(dcterms + "modified", workbook.ModificationDate, new XAttribute(xsi + "type", "dcterms:W3CDTF")));
 
 
             doc.Add(root);

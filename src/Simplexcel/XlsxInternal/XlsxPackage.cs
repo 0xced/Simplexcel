@@ -30,7 +30,7 @@ internal class XlsxPackage
     /// Save the Xlsx Package to a new Stream (that the caller owns and has to dispose)
     /// </summary>
     /// <returns></returns>
-    internal void SaveToStream(Stream outputStream, bool compress)
+    internal void SaveToStream(Stream outputStream, bool compress, DateTime creationDate)
     {
         if (outputStream is not { CanWrite: true } || !outputStream.CanSeek)
         {
@@ -39,7 +39,7 @@ internal class XlsxPackage
 
         using (var pkg = new ZipPackage(outputStream, compress))
         {
-            WriteInfoXmlFile(pkg);
+            WriteInfoXmlFile(pkg, creationDate);
 
             foreach (var file in XmlFiles)
             {
@@ -60,7 +60,7 @@ internal class XlsxPackage
         outputStream.Seek(0, SeekOrigin.Begin);
     }
 
-    private static void WriteInfoXmlFile(ZipPackage pkg)
+    private static void WriteInfoXmlFile(ZipPackage pkg, DateTime creationDate)
     {
         var infoXml = new XmlFile
         {
@@ -76,7 +76,7 @@ internal class XlsxPackage
             new XText(SimplexcelVersion.VersionString)
         ));
 
-        infoXml.Content.Root.Add(new XElement(Namespaces.simplexcel + "created", DateTime.UtcNow));
+        infoXml.Content.Root.Add(new XElement(Namespaces.simplexcel + "created", creationDate));
 
         pkg.WriteXmlFile(infoXml);
     }
