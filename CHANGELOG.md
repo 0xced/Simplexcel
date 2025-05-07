@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+* Drop support for .NET Framework 4.5 whose support ended on January 12th, 2016. Replaced by support for .NET Framework 4.6.2.
+
 ## 3.1.0 (2022-04-30)
 * Support for Standard built-in number formats, which localize properly (PR [#36](https://github.com/mstum/Simplexcel/pull/36) and [#37](https://github.com/mstum/Simplexcel/pull/37))
 * Support for [AutoFilter](https://support.microsoft.com/en-us/office/use-autofilter-to-filter-your-data-7d87d63e-ebd0-424b-8106-e2ab61133d92) (PR [#35](https://github.com/mstum/Simplexcel/pull/35))

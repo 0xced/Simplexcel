@@ -1,46 +1,60 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net462</TargetFrameworks>
-    <Version>3.0.0</Version>
-    <Product>Simplexcel</Product>
-    <Authors>Michael Stum &lt;opensource@stum.de&gt;</Authors>
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <FileVersion>3.0.0.0</FileVersion>
-    <NeutralLanguage>en</NeutralLanguage>
-    <Title>Simplexcel .xlsx library</Title>
-    <Description>A 100% managed code library to generate Excel .xlsx Workbooks. Can be safely used on a server, no COM Interop or other unsafe/unsupported operations.</Description>
-    <Copyright>© 2013-2020 Michael Stum</Copyright>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageProjectUrl>https://github.com/mstum/simplexcel</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/mstum/simplexcel.git</RepositoryUrl>
-    <PackageIcon>package.png</PackageIcon>
-    <RepositoryType>git</RepositoryType>
-    <PackageTags>xlsx excel ooxml netcore netstandard</PackageTags>
-    <PackageId>simplexcel</PackageId>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>../simplexcel_oss.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>false</DelaySign>
-    <LangVersion>12</LangVersion>
-  </PropertyGroup>
-  
-  <PropertyGroup>
-    <DebugType>embedded</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <ContinuousIntegrationBuild>True</ContinuousIntegrationBuild>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <IncludeSource>true</IncludeSource>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\..\package.png" Pack="true" PackagePath="\"/>
-    <None Include="..\..\LICENSE.txt" Pack="true" PackagePath="\"/>
+  <PropertyGroup Label="Compiling">
+    <LangVersion>12</LangVersion>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>../simplexcel_oss.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Packaging">
+    <DebugType>embedded</DebugType>
+    <EmbedAllSources>true</EmbedAllSources>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Packaging Metadata">
+    <Authors>Cédric Luthi,Michael Stum</Authors>
+    <Copyright>© 2013-$([System.DateTime]::Now.Year) Cédric Luthi &amp; Michael Stum</Copyright>
+    <Description>A 100% managed code library to generate Excel .xlsx Workbooks. Can be safely used on a server, no COM Interop or other unsafe/unsupported operations.</Description>
+    <Title>Simplexcel .xlsx library</Title>
+    <PackageId>simplexcel</PackageId>
+    <PackageIcon>package.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>xlsx excel ooxml netcore netstandard</PackageTags>
+    <PackageProjectUrl>https://github.com/0xced/simplexcel</PackageProjectUrl>
+    <PackageReleaseNotes>https://github.com/0xced/simplexcel/blob/main/CHANGELOG.md</PackageReleaseNotes>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup Label="Packaging Metadata">
+    <None Include="../../package.png" Pack="true" PackagePath="" />
+    <None Include="../../README.md" Pack="true" PackagePath="" />
   </ItemGroup>
-  
+
+  <PropertyGroup Label="Versioning">
+    <MinVerMinimumMajorMinor>4.0</MinVerMinimumMajorMinor>
+  </PropertyGroup>
+
+  <PropertyGroup Label="API Validation">
+    <EnablePackageValidation>true</EnablePackageValidation>
+    <PackageValidationBaselineVersion>3.1.0.195</PackageValidationBaselineVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Restoring">
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <RestoreLockedMode Condition="$(ContinuousIntegrationBuild) == 'true'">true</RestoreLockedMode>
+  </PropertyGroup>
+
+  <ItemGroup Label="Restoring">
+    <None Update="packages.lock.json" Visible="false" />
+  </ItemGroup>
+
   <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
     <Reference Include="System.IO.Compression" />
   </ItemGroup>
@@ -50,7 +64,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+    <PackageReference Include="MinVer" Version="6.0.0" PrivateAssets="all" />
     <PackageReference Include="PolySharp" Version="1.15.0" PrivateAssets="all" />
   </ItemGroup>
+
+  <Target Name="ValidateNuGetPackage" AfterTargets="Pack">
+    <Exec Command="dotnet tool restore" />
+    <Exec Command="dotnet validate package local $([MSBuild]::EnsureTrailingSlash($(PackageOutputPath)))$(PackageId).$(PackageVersion).nupkg" />
+  </Target>
 
 </Project>
