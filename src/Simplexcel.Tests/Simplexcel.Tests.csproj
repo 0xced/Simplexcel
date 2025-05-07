@@ -4,7 +4,15 @@
     <TargetFramework>net8.0</TargetFramework>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>../simplexcel_oss.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+
+  <ItemGroup Condition="$(ContinuousIntegrationBuild) == 'true'">
+    <VSTestLogger Include="trx%3BLogFileName=TestResults-$(TargetFramework).trx" Visible="false" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="$(ContinuousIntegrationBuild) == 'true'">
+    <VSTestResultsDirectory>$([MSBuild]::NormalizePath('$(MSBuildProjectDirectory)', '..', '..'))</VSTestResultsDirectory>
+    <VSTestLogger>@(VSTestLogger)</VSTestLogger>
   </PropertyGroup>
 
   <ItemGroup>

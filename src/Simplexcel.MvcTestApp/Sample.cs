@@ -36,7 +36,7 @@ public static class Sample
         cell.Italic = true;
         cell.TextColor = Color.Blue;
         cell.FontSize = 18;
-        cell.Hyperlink = "https://github.com/mstum/Simplexcel";
+        cell.Hyperlink = "https://github.com/0xced/Simplexcel";
         sheet.Cells[0, 3] = cell;
         sheet.ColumnWidths[3] = 40;
 
