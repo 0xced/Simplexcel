@@ -46,8 +46,10 @@ public class VerifyTests
         sheet.Cells["A1"] = "Test";
         sheet.Cells["A1"].FontName = "Arial Black";
 
-        sheet.Cells[0, 1] = "Another Test";
-        sheet.Cells[0, 1].Border = CellBorder.Bottom | CellBorder.Right;
+        var b1 = sheet.Cells[0, 1];
+        b1.Value = "Another Test";
+        b1.Border = CellBorder.Bottom | CellBorder.Right;
+        b1.IgnoredErrors.NumberStoredAsText = true;
 
         sheet.Cells[0, 2] = "Bold Red";
         sheet.Cells[0, 2].Bold = true;

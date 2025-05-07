@@ -592,6 +592,6 @@
   </hyperlinks>
   <pageSetup orientation="landscape" />
   <ignoredErrors>
-    <ignoredError sqref="D8 D9 D10 D11 D14 D15 D16 D17 D19 D23 D24 D25 D26 D29" numberStoredAsText="1" />
+    <ignoredError sqref="B1 D8 D9 D10 D11 D14 D15 D16 D17 D19 D23 D24 D25 D26 D29" numberStoredAsText="1" />
   </ignoredErrors>
 </worksheet>
