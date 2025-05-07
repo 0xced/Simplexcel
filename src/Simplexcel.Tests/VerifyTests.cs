@@ -50,6 +50,14 @@ public class VerifyTests
         b1.Value = "Another Test";
         b1.Border = CellBorder.Bottom | CellBorder.Right;
         b1.IgnoredErrors.NumberStoredAsText = true;
+        b1.IgnoredErrors.CalculatedColumn = true;
+        b1.IgnoredErrors.EmptyCellReference = true;
+        b1.IgnoredErrors.EvalError = true;
+        b1.IgnoredErrors.Formula = true;
+        b1.IgnoredErrors.FormulaRange = true;
+        b1.IgnoredErrors.ListDataValidation = true;
+        b1.IgnoredErrors.TwoDigitTextYear = true;
+        b1.IgnoredErrors.UnlockedFormula = true;
 
         sheet.Cells[0, 2] = "Bold Red";
         sheet.Cells[0, 2].Bold = true;
