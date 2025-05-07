@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace Simplexcel;
@@ -77,7 +78,7 @@ public sealed partial class Worksheet
     {
         var cols = new Dictionary<int, PopulateCellInfo>();
         var props = type.GetTypeInfo().GetAllProperties()
-            .Where(p => p.GetIndexParameters().Length == 0)
+            .Where(p => p.GetIndexParameters().Length == 0 && p.GetCustomAttribute<CompilerGeneratedAttribute>() == null)
             .ToList();
 
         int tempCol = 0; // Just a counter to keep the order of Properties the same
