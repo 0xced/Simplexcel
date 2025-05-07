@@ -93,7 +93,7 @@ You can create Hyperlinks for a cell.
 
 ```cs
 sheet.Cells["A1"] = "Click me now!";
-sheet.Cells["A1"].Hyperlink = "https://github.com/mstum/Simplexcel/";
+sheet.Cells["A1"].Hyperlink = "https://github.com/0xced/Simplexcel/";
 ```
 
 This will NOT automatically format it as a Hyperlink (blue/underlined) to give you freedom to format as desired.
