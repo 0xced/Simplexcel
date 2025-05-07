@@ -47,6 +47,7 @@ jobs:
         run: dotnet test --no-build
       - name: 📤 Upload test results
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: TestResults-${{ runner.os }}.trx
           path: "*.trx"
