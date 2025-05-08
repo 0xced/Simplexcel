@@ -1,0 +1,49 @@
+﻿<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/package/2006/relationships" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:x14ac="http://schemas.microsoft.com/office/spreadsheetml/2009/9/ac" xmlns:or="http://schemas.openxmlformats.org/officeDocument/2006/relationships" mc:Ignorable="x14ac">
+  <sheetFormatPr defaultRowHeight="15" />
+  <sheetData>
+    <row r="1">
+      <c r="A1" t="n" s="6">
+        <v>5</v>
+      </c>
+      <c r="B1" t="str" s="21">
+        <f>SUM(A:A)</f>
+      </c>
+      <c r="C1" t="str" s="21">
+        <f>A1+B1</f>
+      </c>
+    </row>
+    <row r="2">
+      <c r="A2" t="n" s="6">
+        <v>10</v>
+      </c>
+      <c r="B2" t="str" s="21">
+        <f>SUM(A1:A2)</f>
+      </c>
+      <c r="C2" t="str" s="21">
+        <f>=SUM(B:B)</f>
+      </c>
+    </row>
+    <row r="3">
+      <c r="A3" t="n" s="6">
+        <v>15</v>
+      </c>
+      <c r="B3" t="str" s="21">
+        <f>AVERAGE(A:A)</f>
+      </c>
+      <c r="C3" t="str" s="21">
+        <f>C5+A1</f>
+      </c>
+    </row>
+    <row r="4">
+      <c r="B4" t="str" s="21">
+        <f>MEDIAN(A:A)</f>
+      </c>
+    </row>
+    <row r="5">
+      <c r="C5" t="str" s="21">
+        <f>SUM(B:B)+C1</f>
+      </c>
+    </row>
+  </sheetData>
+  <pageSetup orientation="portrait" />
+</worksheet>

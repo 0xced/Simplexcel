@@ -1,0 +1,597 @@
+﻿<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/package/2006/relationships" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:x14ac="http://schemas.microsoft.com/office/spreadsheetml/2009/9/ac" xmlns:or="http://schemas.openxmlformats.org/officeDocument/2006/relationships" mc:Ignorable="x14ac">
+  <sheetFormatPr defaultRowHeight="15" />
+  <cols>
+    <col min="1" max="1" width="25.3109375" customWidth="1" />
+    <col min="4" max="4" width="40.7109375" customWidth="1" />
+  </cols>
+  <sheetData>
+    <row r="1">
+      <c r="A1" t="s" s="2">
+        <v>0</v>
+      </c>
+      <c r="B1" t="s" s="3">
+        <v>1</v>
+      </c>
+      <c r="C1" t="s" s="4">
+        <v>2</v>
+      </c>
+      <c r="D1" t="s" s="5">
+        <v>3</v>
+      </c>
+      <c r="E1" t="n" s="6">
+        <v>13</v>
+      </c>
+      <c r="F1" t="n" s="7">
+        <v>13.58</v>
+      </c>
+      <c r="G1" t="s" s="1">
+        <v>4</v>
+      </c>
+      <c r="H1" t="s" s="1">
+        <v>5</v>
+      </c>
+    </row>
+    <row r="2">
+      <c r="A2" t="s" s="1">
+        <v>6</v>
+      </c>
+      <c r="B2" t="s" s="1">
+        <v>7</v>
+      </c>
+      <c r="C2" t="s" s="1">
+        <v>8</v>
+      </c>
+      <c r="D2" t="s" s="1">
+        <v>9</v>
+      </c>
+      <c r="E2" t="s" s="1">
+        <v>10</v>
+      </c>
+      <c r="F2" t="s" s="1">
+        <v>11</v>
+      </c>
+      <c r="G2" t="s" s="1">
+        <v>12</v>
+      </c>
+      <c r="H2" t="s" s="1">
+        <v>13</v>
+      </c>
+      <c r="I2" t="s" s="1">
+        <v>14</v>
+      </c>
+      <c r="J2" t="s" s="1">
+        <v>15</v>
+      </c>
+      <c r="K2" t="s" s="1">
+        <v>16</v>
+      </c>
+      <c r="L2" t="s" s="1">
+        <v>17</v>
+      </c>
+      <c r="M2" t="s" s="1">
+        <v>18</v>
+      </c>
+      <c r="N2" t="s" s="1">
+        <v>19</v>
+      </c>
+      <c r="O2" t="s" s="1">
+        <v>20</v>
+      </c>
+      <c r="P2" t="s" s="1">
+        <v>21</v>
+      </c>
+      <c r="Q2" t="s" s="1">
+        <v>22</v>
+      </c>
+      <c r="R2" t="s" s="1">
+        <v>23</v>
+      </c>
+      <c r="S2" t="s" s="1">
+        <v>24</v>
+      </c>
+      <c r="T2" t="s" s="1">
+        <v>25</v>
+      </c>
+      <c r="U2" t="s" s="1">
+        <v>26</v>
+      </c>
+      <c r="V2" t="s" s="1">
+        <v>27</v>
+      </c>
+      <c r="W2" t="s" s="1">
+        <v>28</v>
+      </c>
+      <c r="X2" t="s" s="1">
+        <v>29</v>
+      </c>
+      <c r="Y2" t="s" s="1">
+        <v>30</v>
+      </c>
+      <c r="Z2" t="s" s="1">
+        <v>31</v>
+      </c>
+      <c r="AA2" t="s" s="1">
+        <v>32</v>
+      </c>
+      <c r="AB2" t="s" s="1">
+        <v>33</v>
+      </c>
+      <c r="AC2" t="s" s="1">
+        <v>34</v>
+      </c>
+      <c r="AD2" t="s" s="1">
+        <v>35</v>
+      </c>
+      <c r="AE2" t="s" s="1">
+        <v>36</v>
+      </c>
+      <c r="AF2" t="s" s="1">
+        <v>37</v>
+      </c>
+      <c r="AG2" t="s" s="1">
+        <v>38</v>
+      </c>
+      <c r="AH2" t="s" s="1">
+        <v>39</v>
+      </c>
+      <c r="AI2" t="s" s="1">
+        <v>40</v>
+      </c>
+      <c r="AJ2" t="s" s="1">
+        <v>41</v>
+      </c>
+      <c r="AK2" t="s" s="1">
+        <v>42</v>
+      </c>
+      <c r="AL2" t="s" s="1">
+        <v>43</v>
+      </c>
+      <c r="AM2" t="s" s="1">
+        <v>44</v>
+      </c>
+      <c r="AN2" t="s" s="1">
+        <v>45</v>
+      </c>
+      <c r="AO2" t="s" s="1">
+        <v>46</v>
+      </c>
+      <c r="AP2" t="s" s="1">
+        <v>47</v>
+      </c>
+      <c r="AQ2" t="s" s="1">
+        <v>48</v>
+      </c>
+      <c r="AR2" t="s" s="1">
+        <v>49</v>
+      </c>
+      <c r="AS2" t="s" s="1">
+        <v>50</v>
+      </c>
+      <c r="AT2" t="s" s="1">
+        <v>51</v>
+      </c>
+      <c r="AU2" t="s" s="1">
+        <v>52</v>
+      </c>
+      <c r="AV2" t="s" s="1">
+        <v>53</v>
+      </c>
+      <c r="AW2" t="s" s="1">
+        <v>54</v>
+      </c>
+      <c r="AX2" t="s" s="1">
+        <v>55</v>
+      </c>
+      <c r="AY2" t="s" s="1">
+        <v>56</v>
+      </c>
+      <c r="AZ2" t="s" s="1">
+        <v>57</v>
+      </c>
+      <c r="BA2" t="s" s="1">
+        <v>58</v>
+      </c>
+      <c r="BB2" t="s" s="1">
+        <v>59</v>
+      </c>
+      <c r="BC2" t="s" s="1">
+        <v>60</v>
+      </c>
+    </row>
+    <row r="3">
+      <c r="A3" t="s" s="1">
+        <v>61</v>
+      </c>
+    </row>
+    <row r="4">
+      <c r="A4" t="s" s="1">
+        <v>62</v>
+      </c>
+      <c r="D4" t="n" s="8">
+        <v>44677.5515625</v>
+      </c>
+    </row>
+    <row r="5">
+      <c r="A5" t="s" s="1">
+        <v>63</v>
+      </c>
+      <c r="C5" t="s" s="13">
+        <v>64</v>
+      </c>
+      <c r="D5" t="n" s="9">
+        <v>44677.5515625</v>
+      </c>
+      <c r="F5" t="s" s="18">
+        <v>65</v>
+      </c>
+      <c r="G5" t="s" s="19">
+        <v>66</v>
+      </c>
+    </row>
+    <row r="6">
+      <c r="A6" t="s" s="1">
+        <v>67</v>
+      </c>
+      <c r="C6" t="s" s="14">
+        <v>68</v>
+      </c>
+      <c r="D6" t="n" s="10">
+        <v>44677.5515625</v>
+      </c>
+    </row>
+    <row r="7">
+      <c r="A7" t="s" s="1">
+        <v>69</v>
+      </c>
+      <c r="C7" t="s" s="15">
+        <v>70</v>
+      </c>
+      <c r="D7" t="n" s="11">
+        <v>44677.5515625</v>
+      </c>
+    </row>
+    <row r="8">
+      <c r="A8" t="s" s="1">
+        <v>71</v>
+      </c>
+      <c r="C8" t="s" s="16">
+        <v>72</v>
+      </c>
+      <c r="D8" t="s" s="12">
+        <v>73</v>
+      </c>
+    </row>
+    <row r="9">
+      <c r="A9" t="s" s="1">
+        <v>74</v>
+      </c>
+      <c r="C9" t="s" s="17">
+        <v>75</v>
+      </c>
+      <c r="D9" t="s" s="12">
+        <v>76</v>
+      </c>
+    </row>
+    <row r="10">
+      <c r="A10" t="s" s="1">
+        <v>77</v>
+      </c>
+      <c r="D10" t="s" s="12">
+        <v>78</v>
+      </c>
+    </row>
+    <row r="11">
+      <c r="A11" t="s" s="1">
+        <v>79</v>
+      </c>
+      <c r="D11" t="s" s="12">
+        <v>80</v>
+      </c>
+      <c r="F11" t="s" s="1">
+        <v>81</v>
+      </c>
+      <c r="G11" t="s" s="1">
+        <v>82</v>
+      </c>
+    </row>
+    <row r="12">
+      <c r="A12" t="s" s="1">
+        <v>83</v>
+      </c>
+      <c r="D12" t="n" s="6">
+        <v>9999999999</v>
+      </c>
+      <c r="F12" t="s" s="1">
+        <v>84</v>
+      </c>
+      <c r="G12" t="s" s="1">
+        <v>85</v>
+      </c>
+    </row>
+    <row r="13">
+      <c r="A13" t="s" s="1">
+        <v>86</v>
+      </c>
+      <c r="D13" t="n" s="6">
+        <v>99999999999</v>
+      </c>
+      <c r="F13" t="s" s="1">
+        <v>87</v>
+      </c>
+      <c r="G13" t="s" s="1">
+        <v>88</v>
+      </c>
+    </row>
+    <row r="14">
+      <c r="A14" t="s" s="1">
+        <v>89</v>
+      </c>
+      <c r="D14" t="s" s="12">
+        <v>90</v>
+      </c>
+      <c r="F14" t="s" s="1">
+        <v>91</v>
+      </c>
+      <c r="G14" t="s" s="1">
+        <v>92</v>
+      </c>
+    </row>
+    <row r="15">
+      <c r="A15" t="s" s="1">
+        <v>93</v>
+      </c>
+      <c r="D15" t="s" s="12">
+        <v>94</v>
+      </c>
+    </row>
+    <row r="16">
+      <c r="A16" t="s" s="1">
+        <v>95</v>
+      </c>
+      <c r="D16" t="s" s="12">
+        <v>96</v>
+      </c>
+    </row>
+    <row r="17">
+      <c r="A17" t="s" s="1">
+        <v>97</v>
+      </c>
+      <c r="D17" t="s" s="12">
+        <v>98</v>
+      </c>
+    </row>
+    <row r="18">
+      <c r="A18" t="s" s="1">
+        <v>99</v>
+      </c>
+      <c r="D18" t="n" s="7">
+        <v>99999999999</v>
+      </c>
+    </row>
+    <row r="19">
+      <c r="A19" t="s" s="1">
+        <v>100</v>
+      </c>
+      <c r="D19" t="s" s="12">
+        <v>90</v>
+      </c>
+    </row>
+    <row r="20">
+      <c r="A20" t="s" s="1">
+        <v>101</v>
+      </c>
+      <c r="D20" t="n" s="7">
+        <v>99999999998</v>
+      </c>
+    </row>
+    <row r="21">
+      <c r="A21" t="s" s="1">
+        <v>102</v>
+      </c>
+      <c r="D21" t="n" s="6">
+        <v>-9999999999</v>
+      </c>
+    </row>
+    <row r="22">
+      <c r="A22" t="s" s="1">
+        <v>103</v>
+      </c>
+      <c r="D22" t="n" s="6">
+        <v>-99999999999</v>
+      </c>
+    </row>
+    <row r="23">
+      <c r="A23" t="s" s="1">
+        <v>104</v>
+      </c>
+      <c r="D23" t="s" s="12">
+        <v>105</v>
+      </c>
+    </row>
+    <row r="24">
+      <c r="A24" t="s" s="1">
+        <v>106</v>
+      </c>
+      <c r="D24" t="s" s="12">
+        <v>107</v>
+      </c>
+    </row>
+    <row r="25">
+      <c r="A25" t="s" s="1">
+        <v>108</v>
+      </c>
+      <c r="D25" t="s" s="12">
+        <v>109</v>
+      </c>
+    </row>
+    <row r="26">
+      <c r="A26" t="s" s="1">
+        <v>110</v>
+      </c>
+      <c r="D26" t="s" s="12">
+        <v>111</v>
+      </c>
+    </row>
+    <row r="27">
+      <c r="A27" t="s" s="1">
+        <v>112</v>
+      </c>
+      <c r="D27" t="n" s="7">
+        <v>-99999999999</v>
+      </c>
+    </row>
+    <row r="28">
+      <c r="A28" t="s" s="1">
+        <v>113</v>
+      </c>
+      <c r="D28" t="n" s="7">
+        <v>-99999999998</v>
+      </c>
+    </row>
+    <row r="29">
+      <c r="A29" t="s" s="1">
+        <v>114</v>
+      </c>
+      <c r="D29" t="s" s="12">
+        <v>105</v>
+      </c>
+    </row>
+    <row r="30">
+      <c r="A30" t="s" s="1">
+        <v>115</v>
+      </c>
+    </row>
+    <row r="31">
+      <c r="A31" t="s" s="1">
+        <v>116</v>
+      </c>
+    </row>
+    <row r="32">
+      <c r="A32" t="s" s="1">
+        <v>117</v>
+      </c>
+    </row>
+    <row r="33">
+      <c r="A33" t="s" s="1">
+        <v>118</v>
+      </c>
+    </row>
+    <row r="34">
+      <c r="A34" t="s" s="1">
+        <v>119</v>
+      </c>
+    </row>
+    <row r="35">
+      <c r="A35" t="s" s="1">
+        <v>120</v>
+      </c>
+    </row>
+    <row r="36">
+      <c r="A36" t="s" s="1">
+        <v>121</v>
+      </c>
+    </row>
+    <row r="37">
+      <c r="A37" t="s" s="1">
+        <v>122</v>
+      </c>
+    </row>
+    <row r="38">
+      <c r="A38" t="s" s="1">
+        <v>123</v>
+      </c>
+    </row>
+    <row r="39">
+      <c r="A39" t="s" s="1">
+        <v>124</v>
+      </c>
+    </row>
+    <row r="40">
+      <c r="A40" t="s" s="1">
+        <v>125</v>
+      </c>
+    </row>
+    <row r="41">
+      <c r="A41" t="s" s="1">
+        <v>126</v>
+      </c>
+    </row>
+    <row r="42">
+      <c r="A42" t="s" s="1">
+        <v>127</v>
+      </c>
+    </row>
+    <row r="43">
+      <c r="A43" t="s" s="1">
+        <v>128</v>
+      </c>
+    </row>
+    <row r="44">
+      <c r="A44" t="s" s="1">
+        <v>129</v>
+      </c>
+    </row>
+    <row r="45">
+      <c r="A45" t="s" s="1">
+        <v>130</v>
+      </c>
+    </row>
+    <row r="46">
+      <c r="A46" t="s" s="1">
+        <v>131</v>
+      </c>
+    </row>
+    <row r="47">
+      <c r="A47" t="s" s="1">
+        <v>132</v>
+      </c>
+    </row>
+    <row r="48">
+      <c r="A48" t="s" s="1">
+        <v>133</v>
+      </c>
+    </row>
+    <row r="49">
+      <c r="A49" t="s" s="1">
+        <v>134</v>
+      </c>
+    </row>
+    <row r="50">
+      <c r="A50" t="s" s="1">
+        <v>135</v>
+      </c>
+    </row>
+    <row r="51">
+      <c r="A51" t="s" s="1">
+        <v>136</v>
+      </c>
+    </row>
+    <row r="52">
+      <c r="A52" t="s" s="1">
+        <v>137</v>
+      </c>
+    </row>
+    <row r="53">
+      <c r="A53" t="s" s="1">
+        <v>138</v>
+      </c>
+    </row>
+    <row r="54">
+      <c r="A54" t="s" s="1">
+        <v>139</v>
+      </c>
+    </row>
+    <row r="55">
+      <c r="A55" t="s" s="1">
+        <v>140</v>
+      </c>
+    </row>
+  </sheetData>
+  <hyperlinks>
+    <hyperlink ref="D1" or:id="rId1" />
+  </hyperlinks>
+  <pageSetup orientation="landscape" />
+  <ignoredErrors>
+    <ignoredError sqref="D8 D9 D10 D11 D14 D15 D16 D17 D19 D23 D24 D25 D26 D29" numberStoredAsText="1" />
+  </ignoredErrors>
+</worksheet>

@@ -1,0 +1,11 @@
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+  <Relationship Target="/xl/styles.xml" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Id="r2" />
+  <Relationship Target="/xl/worksheets/sheet1.xml" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Id="r3" />
+  <Relationship Target="/xl/worksheets/sheet2.xml" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Id="r4" />
+  <Relationship Target="/xl/worksheets/sheet3.xml" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Id="r5" />
+  <Relationship Target="/xl/worksheets/sheet4.xml" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Id="r6" />
+  <Relationship Target="/xl/worksheets/sheet5.xml" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Id="r7" />
+  <Relationship Target="/xl/worksheets/sheet6.xml" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Id="r8" />
+  <Relationship Target="/xl/worksheets/sheet7.xml" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Id="r9" />
+  <Relationship Target="/xl/sharedStrings.xml" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings" Id="r10" />
+</Relationships>
