@@ -21,6 +21,14 @@ internal sealed class XlsxIgnoredError
 
             // And because the reference is mutable, this stores a copy so that modifications to the Worksheet don't break this
             _ignoredError.NumberStoredAsText = value.NumberStoredAsText;
+            _ignoredError.CalculatedColumn = value.CalculatedColumn;
+            _ignoredError.EmptyCellReference = value.EmptyCellReference;
+            _ignoredError.EvalError = value.EvalError;
+            _ignoredError.Formula = value.Formula;
+            _ignoredError.FormulaRange = value.FormulaRange;
+            _ignoredError.ListDataValidation = value.ListDataValidation;
+            _ignoredError.TwoDigitTextYear = value.TwoDigitTextYear;
+            _ignoredError.UnlockedFormula = value.UnlockedFormula;
             IgnoredErrorId = _ignoredError.GetHashCode();
         }
     }

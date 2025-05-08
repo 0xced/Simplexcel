@@ -592,6 +592,7 @@
   </hyperlinks>
   <pageSetup orientation="landscape" />
   <ignoredErrors>
-    <ignoredError sqref="B1 D8 D9 D10 D11 D14 D15 D16 D17 D19 D23 D24 D25 D26 D29" numberStoredAsText="1" />
+    <ignoredError sqref="B1" evalError="1" twoDigitTextYear="1" numberStoredAsText="1" formula="1" formulaRange="1" unlockedFormula="1" emptyCellReference="1" listDataValidation="1" calculatedColumn="1" />
+    <ignoredError sqref="D8 D9 D10 D11 D14 D15 D16 D17 D19 D23 D24 D25 D26 D29" numberStoredAsText="1" />
   </ignoredErrors>
 </worksheet>
