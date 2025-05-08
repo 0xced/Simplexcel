@@ -223,10 +223,10 @@ public class VerifyTests
         formulaSheet.Cells["B2"] = Cell.Formula("SUM(A1:A2)");
         formulaSheet.Cells["B3"] = Cell.Formula("AVERAGE(A:A)");
         formulaSheet.Cells["B4"] = Cell.Formula("MEDIAN(A:A)");
-        formulaSheet.Cells["C1"] = Cell.Formula("A1+B1");
+        formulaSheet.Cells["C1"] = Cell.Formula(new Formula("A1+B1", computedValue: 35));
         formulaSheet.Cells["C2"] = Cell.Formula("=SUM(B:B)");
         formulaSheet.Cells["C3"] = Cell.Formula("C5+A1");
-        formulaSheet.Cells["C5"] = Cell.Formula("SUM(B:B)+C1");
+        formulaSheet.Cells["C5"] = Cell.Formula(new Formula("SUM(B:B)+C1", computedValue: 100));
         wb.Add(formulaSheet);
 
         var freezeTopLeftSheet = new Worksheet("FreezeTopLeft");

@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 * Drop support for .NET Framework 4.5 whose support ended on January 12th, 2016. Replaced by support for .NET Framework 4.6.2.
+* Add a new `Formula` type for formula cells that can contains both the formula and its pre-computed value. The pre-computed value is important for applications beside Excel that can read xlsx files. This is, for example, the value which is used by Quick Look on macOS. If the pre-computed value is not supplied, then Quick Look displays an empty cell.
+* Change the static `Cell Formula(string formula)` method signature to `Cell Formula(Formula formula, string format = BuiltInCellFormat.General)`. This is a binary breaking change but is still source compatible thanks to the implicit conversion operator from `string` to `Formula`.
 
 ## 3.1.0 (2022-04-30)
 * Support for Standard built-in number formats, which localize properly (PR [#36](https://github.com/mstum/Simplexcel/pull/36) and [#37](https://github.com/mstum/Simplexcel/pull/37))

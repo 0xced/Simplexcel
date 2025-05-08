@@ -21,9 +21,9 @@ public sealed class Cell
     /// Create a new Cell of the given <see cref="CellType"/>, with the given value and format. For some common formats, see <see cref="BuiltInCellFormat"/>.
     /// You can also implicitly create a cell from a string or number.
     /// </summary>
-    /// <param name="type"> </param>
-    /// <param name="value"> </param>
-    /// <param name="format"> </param>
+    /// <param name="type">The Type of the cell.</param>
+    /// <param name="value">The Content of the cell.</param>
+    /// <param name="format">The Excel Format for the cell, see <see cref="BuiltInCellFormat"/></param>
     public Cell(CellType type, object value, string format)
     {
         // Validate the type of the value argument here in order to avoid InvalidCastException later in Simplexcel.XlsxInternal.XlsxWriter.XlsxWriterInternal.GetXlsxRows
@@ -35,8 +35,8 @@ public sealed class Cell
                 throw new ArgumentException("The value must be a decimal for number cells.", nameof(value));
             case CellType.Date when value is not null && value is not DateTime:
                 throw new ArgumentException("The value must be a DateTime for date cells.", nameof(value));
-            case CellType.Formula when value is not string:
-                throw new ArgumentException("The value must be a string for formula cells.", nameof(value));
+            case CellType.Formula when value is not (Simplexcel.Formula or string):
+                throw new ArgumentException("The value must be a Formula or a string for formula cells.", nameof(value));
         }
 
         XlsxCellStyle = new XlsxCellStyle
@@ -169,13 +169,14 @@ public sealed class Cell
     public string Hyperlink { get; set; }
 
     /// <summary>
-    /// Create a new <see cref="Cell"/> that includes a Formula (e.g., SUM(A1:A5)). Do not include the initial = sign!
+    /// Create a new <see cref="Cell"/> that includes a Formula (e.g., SUM(A1:A5)). Do not include the initial <c>=</c> sign.
     /// </summary>
-    /// <param name="formula">The formula, without the initial = sign (so "SUM(A1:A5)", not "=SUM(A1:A5)")</param>
+    /// <param name="formula">The formula, without the initial <c>=</c> sign (so "SUM(A1:A5)", not "=SUM(A1:A5)")</param>
+    /// <param name="format">The Excel Format for the cell, see <see cref="BuiltInCellFormat"/></param>
     /// <returns></returns>
-    public static Cell Formula(string formula)
+    public static Cell Formula(Formula formula, string format = BuiltInCellFormat.General)
     {
-        return new Cell(CellType.Formula, formula, BuiltInCellFormat.General);
+        return new Cell(CellType.Formula, formula, format);
     }
 
     /// <summary>

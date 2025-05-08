@@ -485,14 +485,11 @@ internal static class XlsxWriter
                         new XAttribute("t", cell.CellType),
                         new XAttribute("s", cell.StyleIndex));
 
-                    if (cell.CellType == XlsxCellTypes.FormulaString)
+                    if (cell.Formula != null)
                     {
-                        ce.Add(new XElement(Namespaces.workbook + "f", cell.Value));
+                        ce.Add(new XElement(Namespaces.workbook + "f", cell.Formula));
                     }
-                    else
-                    {
-                        ce.Add(new XElement(Namespaces.workbook + "v", cell.Value));
-                    }
+                    ce.Add(new XElement(Namespaces.workbook + "v", cell.Value));
 
                     re.Add(ce);
                 }
@@ -625,7 +622,15 @@ internal static class XlsxWriter
                         break;
                     case CellType.Formula:
                         xc.CellType = XlsxCellTypes.FormulaString;
-                        xc.Value = (string)cell.Value.Value;
+                        if (cell.Value.Value is Formula formula)
+                        {
+                            xc.Formula = formula.Expression;
+                            xc.Value = formula.ComputedValue;
+                        }
+                        else
+                        {
+                            xc.Formula = (string)cell.Value.Value;
+                        }
                         break;
                     case CellType.Number:
                         // Fun: Excel can't handle large numbers as numbers
