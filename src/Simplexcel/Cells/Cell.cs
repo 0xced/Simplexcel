@@ -26,6 +26,19 @@ public sealed class Cell
     /// <param name="format"> </param>
     public Cell(CellType type, object value, string format)
     {
+        // Validate the type of the value argument here in order to avoid InvalidCastException later in Simplexcel.XlsxInternal.XlsxWriter.XlsxWriterInternal.GetXlsxRows
+        switch (type)
+        {
+            case CellType.Text when value is not string:
+                throw new ArgumentException("The value must be a string for text cells.", nameof(value));
+            case CellType.Number when value is not decimal:
+                throw new ArgumentException("The value must be a decimal for number cells.", nameof(value));
+            case CellType.Date when value is not null && value is not DateTime:
+                throw new ArgumentException("The value must be a DateTime for date cells.", nameof(value));
+            case CellType.Formula when value is not string:
+                throw new ArgumentException("The value must be a string for formula cells.", nameof(value));
+        }
+
         XlsxCellStyle = new XlsxCellStyle
         {
             Format = format
