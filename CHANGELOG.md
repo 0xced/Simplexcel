@@ -4,10 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
-* Drop support for .NET Framework 4.5 whose support ended on January 12th, 2016. Replaced by support for .NET Framework 4.6.2.
+## [Unreleased][Unreleased]
+* **Breaking Change:** Drop support for .NET Framework 4.5 whose support ended on January 12th, 2016. Replaced by support for .NET Framework 4.6.2.
+* **Breaking Change:** Change the static `Cell Formula(string formula)` method signature to `Cell Formula(Formula formula, string format = BuiltInCellFormat.General)`. This is a binary breaking change but is still source compatible thanks to the implicit conversion operator from `string` to the new `Formula` type.
 * Add a new `Formula` type for formula cells that can contains both the formula and its pre-computed value. The pre-computed value is important for applications beside Excel that can read xlsx files. This is, for example, the value which is used by Quick Look on macOS. If the pre-computed value is not supplied, then Quick Look displays an empty cell.
-* Change the static `Cell Formula(string formula)` method signature to `Cell Formula(Formula formula, string format = BuiltInCellFormat.General)`. This is a binary breaking change but is still source compatible thanks to the implicit conversion operator from `string` to `Formula`.
+* Add support for C# 9.0 record types when using `Worksheet.Populate`/`Worksheet.FromData`. The `EqualityContract` column is no longer generated, same as for all properties decorated with the `[CompilerGenerated]` attribute.
+* Add two new properties on the `Workbook` class: `CreationDate` and `ModificationDate`, defaulting to `DateTime.UtcNow`.
+* Fix a bug where ignored errors would not actually be ignored. Only the `NumberStoredAsText` ignored error was actually working. Now all ignored error (`CalculatedColumn`, `EmptyCellReference` etc.) are properly ignored.
 
 ## 3.1.0 (2022-04-30)
 * Support for Standard built-in number formats, which localize properly (PR [#36](https://github.com/mstum/Simplexcel/pull/36) and [#37](https://github.com/mstum/Simplexcel/pull/37))
@@ -92,3 +95,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## 1.0.2 (2013-01-10)
 * Initial Public Release.
+
+* [Unreleased]: https://github.com/0xced/Simplexcel/compare/121f7913fd8bf7fd5e51632b0e70364e8057269f...HEAD
