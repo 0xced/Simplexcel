@@ -40,12 +40,12 @@ public sealed class Workbook
     /// <summary>
     /// The creation date of the Workbook. Default to now in UTC, i.e. <c>DateTime.UtcNow</c>
     /// </summary>
-    public DateTime CreationDate { get; init; }
+    public DateTime CreationDate { get; set; }
 
     /// <summary>
     /// The modification date of the Workbook. Default to now in UTC, i.e. <c>DateTime.UtcNow</c>
     /// </summary>
-    public DateTime ModificationDate { get; init; }
+    public DateTime ModificationDate { get; set; }
 
     /// <summary>
     /// How many <see cref="Worksheet">sheets</see> are in the Workbook currently?
