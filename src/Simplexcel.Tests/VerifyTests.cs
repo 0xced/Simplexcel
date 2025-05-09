@@ -11,7 +11,22 @@ namespace Simplexcel.Tests;
 public class VerifyTests
 {
     [Fact]
-    public Task SampleExcelFile()
+    public async Task Structure()
+    {
+        await using var workbook = CreateWorkbookStream();
+
+        await Verifier.VerifyZip(workbook, include: e => !e.FullName.EndsWith("simplexcel.xml"));
+    }
+
+    [Fact]
+    public async Task Data()
+    {
+        await using var workbook = CreateWorkbookStream();
+
+        await Verifier.Verify(workbook, extension: "xlsx");
+    }
+
+    private static Stream CreateWorkbookStream()
     {
         var wb = new Workbook
         {
@@ -226,7 +241,7 @@ public class VerifyTests
         var xlsxStream = new MemoryStream();
         wb.Save(xlsxStream);
 
-        return Verifier.VerifyZip(xlsxStream, include: e => !e.FullName.EndsWith("simplexcel.xml"));
+        return xlsxStream;
     }
 
     private static IEnumerable<PopulateTestData> EnumeratePopulateTestData()
